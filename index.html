@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nastaran Tork, graduate student in civil engineering (transportation) at the University of Minnesota, Twin Cities. Freight and truck flow, highway corridor analysis, optimization.">
+<meta name="color-scheme" content="light dark">
+<title>Nastaran Tork</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap">
+</head>
+<body>
+<style>
+  :root {
+    --paper:   #F6F6F2;
+    --raised:  #EFEFE9;
+    --ink:     #17201C;
+    --ink-2:   #48554D;
+    --ink-3:   #6B776F;
+    --rule:    #DCDDD4;
+    --accent:  #14614A;
+    --accent-2:#0E4737;
+    --signal:  #A94E1C;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #101411;
+      --raised:  #171C18;
+      --ink:     #E7EAE3;
+      --ink-2:   #A9B3AB;
+      --ink-3:   #7C8880;
+      --rule:    #262D27;
+      --accent:  #6FBF9D;
+      --accent-2:#8FD4B6;
+      --signal:  #DE8A5D;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:   #101411;
+    --raised:  #171C18;
+    --ink:     #E7EAE3;
+    --ink-2:   #A9B3AB;
+    --ink-3:   #7C8880;
+    --rule:    #262D27;
+    --accent:  #6FBF9D;
+    --accent-2:#8FD4B6;
+    --signal:  #DE8A5D;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-2); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .page {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding-inline: 24px;
+    padding-block: 56px 72px;
+    display: grid;
+    grid-template-columns: 244px 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  /* ---------- identity rail ---------- */
+
+  .rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 48px); }
+
+  .name {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 4.6vw, 2.35rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .role {
+    margin: 10px 0 0;
+    color: var(--ink-2);
+    font-size: .875rem;
+    line-height: 1.5;
+  }
+
+  .affil { margin: 2px 0 0; color: var(--ink-3); font-size: .875rem; }
+
+  /* decorative corridor volume strip */
+  .corridor {
+    display: flex;
+    gap: 2px;
+    height: 10px;
+    margin: 22px 0 20px;
+    align-items: flex-end;
+  }
+  .corridor span {
+    flex: 1;
+    background: var(--accent);
+    opacity: var(--v, .4);
+    height: calc(4px + var(--v, .4) * 6px);
+  }
+
+  .contact { display: flex; flex-direction: column; gap: 5px; margin: 0 0 22px; }
+  .contact a, .contact span {
+    font-family: var(--mono);
+    font-size: .78rem;
+    letter-spacing: -0.01em;
+    word-break: break-all;
+  }
+  .contact span { color: var(--ink-3); }
+
+  .rail-nav { display: flex; flex-direction: column; gap: 1px; border-top: 1px solid var(--rule); padding-top: 14px; }
+  .rail-nav a {
+    font-size: .8rem;
+    color: var(--ink-2);
+    text-decoration: none;
+    padding: 3px 0;
+  }
+  .rail-nav a:hover { color: var(--accent); }
+
+  /* ---------- main column ---------- */
+
+  main { display: flex; flex-direction: column; gap: 46px; min-width: 0; }
+
+  section { scroll-margin-top: 28px; }
+
+  h2 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: .7rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .lede { font-size: 1.02rem; line-height: 1.7; margin: 0 0 14px; max-width: 62ch; }
+  p { max-width: 64ch; }
+  section > p:last-child { margin-bottom: 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; list-style: none; }
+  .tags li {
+    font-size: .8rem;
+    color: var(--ink-2);
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px 11px;
+  }
+
+  .entries { display: flex; flex-direction: column; gap: 22px; }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .entry-title { font-size: 1rem; font-weight: 600; margin: 0; line-height: 1.4; }
+  .entry-title .where { font-weight: 400; color: var(--ink-2); }
+  .entry-title .where::before { content: ", "; }
+
+  .when {
+    font-family: var(--mono);
+    font-size: .76rem;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .entry p { margin: 6px 0 0; color: var(--ink-2); font-size: .92rem; }
+  .entry ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-2); font-size: .92rem; max-width: 64ch; }
+  .entry li { margin-bottom: 5px; }
+  .entry li::marker { color: var(--ink-3); }
+
+  .award {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: .8rem;
+    color: var(--signal);
+    font-family: var(--mono);
+  }
+
+  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .project {
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 16px 18px 18px;
+    background: var(--raised);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .project h3 { margin: 0; font-size: .95rem; font-weight: 600; }
+  .project p { margin: 0; font-size: .88rem; color: var(--ink-2); }
+  .project .link { font-family: var(--mono); font-size: .76rem; margin-top: auto; padding-top: 4px; }
+
+  .note {
+    border-left: 2px solid var(--signal);
+    padding: 2px 0 2px 14px;
+    color: var(--ink-3);
+    font-size: .88rem;
+    max-width: 62ch;
+  }
+
+  .plain { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+
+  footer {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    margin-top: 12px;
+    font-family: var(--mono);
+    font-size: .74rem;
+    color: var(--ink-3);
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 860px) {
+    .page {
+      grid-template-columns: 1fr;
+      gap: 44px;
+      padding-block: 40px 56px;
+      padding-inline: 20px;
+    }
+    .rail { position: static; }
+    .rail-nav { display: none; }
+    main { gap: 38px; }
+  }
+
+  @media print {
+    .rail-nav, .corridor { display: none; }
+    .page { display: block; max-width: none; padding: 0; }
+    body { font-size: 10.5pt; color: #000; background: #fff; }
+    .project { break-inside: avoid; }
+  }
+</style>
+
+<div class="page">
+
+  <aside class="rail">
+    <h1 class="name">Nastaran Tork</h1>
+    <p class="role">Graduate Student, Civil Engineering (Transportation)</p>
+    <p class="affil">University of Minnesota, Twin Cities</p>
+
+    <div class="corridor" aria-hidden="true">
+      <span style="--v:.30"></span><span style="--v:.42"></span><span style="--v:.55"></span>
+      <span style="--v:.78"></span><span style="--v:.92"></span><span style="--v:.70"></span>
+      <span style="--v:.48"></span><span style="--v:.36"></span><span style="--v:.52"></span>
+      <span style="--v:.84"></span><span style="--v:1"></span><span style="--v:.66"></span>
+      <span style="--v:.44"></span><span style="--v:.28"></span><span style="--v:.38"></span>
+      <span style="--v:.60"></span>
+    </div>
+
+    <div class="contact">
+      <a href="mailto:tork0100@umn.edu">tork0100@umn.edu</a>
+      <!-- Replace USERNAME below with your own handles, or delete any line you do not use. -->
+      <a href="https://github.com/USERNAME">github.com/USERNAME</a>
+      <a href="https://scholar.google.com/citations?user=USERNAME">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/USERNAME">LinkedIn</a>
+      <span>Minneapolis, MN</span>
+    </div>
+
+    <nav class="rail-nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#research">Research interests</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#software">Software</a>
+      <a href="#publications">Publications and talks</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#service">Service</a>
+    </nav>
+  </aside>
+
+  <main>
+
+    <section id="about">
+      <h2>About</h2>
+      <p class="lede">I am a graduate student in civil engineering at the University of Minnesota, Twin Cities, working on transportation systems, with a master's in data science and operations research from Industrial and Systems Engineering.</p>
+      <p>Most of my work starts with messy agency and field data. I assemble and validate transit, freight, and highway corridor datasets, including truck flow data, and turn them into something a planner can act on. Recently that has meant truck size and weight policy, corridor level visualization of truck volumes, and open source tools that public agencies can run themselves.</p>
+    </section>
+
+    <section id="research">
+      <h2>Research interests</h2>
+      <ul class="tags">
+        <li>Freight and truck flow</li>
+        <li>Highway corridor analysis</li>
+        <li>Truck size and weight policy</li>
+        <li>Transit systems</li>
+        <li>Mathematical optimization</li>
+        <li>Applied statistics and machine learning</li>
+        <li>Decision tools for public agencies</li>
+      </ul>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div class="entries">
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Graduate Student, Civil Engineering (Transportation) <span class="where">University of Minnesota, Twin Cities</span></p>
+            <span class="when">2025 to present</span>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">M.S., Data Science in Operations Research <span class="where">Industrial and Systems Engineering, University of Minnesota</span></p>
+            <span class="when">2022 to 2025</span>
+          </div>
+          <p>Coursework in theory of statistics, nonlinear and discrete optimization, stochastic processes and queuing systems, stochastic simulation and machine learning, and decision analysis. Capstone with Collins Aerospace, co-designing and running an internal applied statistics competition to build analytical capacity across the organization.</p>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">B.S., Electrical Engineering <span class="where">Iran University of Science and Technology</span></p>
+            <span class="when">2020</span>
+          </div>
+          <span class="award">Top ranked graduate in program</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="entries">
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Graduate Research Assistant <span class="where">Transit Lab, University of Minnesota</span></p>
+            <span class="when">Aug 2025 to 2026</span>
+          </div>
+          <ul>
+            <li>Gather, clean, and validate transit, freight, and highway corridor datasets, including truck flow data, and analyze them to answer questions posed by faculty and project partners.</li>
+            <li>Build and document analysis code in Python, including two open source decision tools released for public agency use.</li>
+            <li>Handled the data and analysis sections of a state funded project report and its public webinar, as part of a five person team of faculty, staff, and agency partners.</li>
+            <li>Present results regularly to research group meetings and to non specialist audiences, using summary charts and Power BI dashboards.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Undergraduate Research Assistant <span class="where">Machine Vision Lab, Iran University of Science and Technology</span></p>
+            <span class="when">2019 to 2020</span>
+          </div>
+          <p>Implemented and tested control algorithms in simulation, running batches of experiments and summarizing the comparative results.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="software">
+      <h2>Software</h2>
+      <div class="projects">
+
+        <div class="project">
+          <h3>Fleet transition planning tool</h3>
+          <p>Open source decision tool released for public agency use, supporting planning of vehicle fleet transitions.</p>
+          <!-- Point this at the repository once you have the link. -->
+          <span class="link"><a href="https://github.com/USERNAME">Repository</a></span>
+        </div>
+
+        <div class="project">
+          <h3>Life cycle cost comparison tool</h3>
+          <p>Open source decision tool for comparing life cycle costs across alternatives, built for use by public agencies.</p>
+          <span class="link"><a href="https://github.com/USERNAME">Repository</a></span>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Publications and talks</h2>
+      <p class="note">Add entries here. The HTML source of this section has a commented template showing the markup for one entry, so you can copy it for each paper, report, or talk.</p>
+      <!--
+        Copy this block for each publication, report, or presentation, and delete the note above
+        once you have at least one entry.
+
+        <ul class="plain">
+          <li class="entry">
+            <div class="entry-head">
+              <p class="entry-title">Title of the paper or report</p>
+              <span class="when">2026</span>
+            </div>
+            <p>Author One, Nastaran Tork, Author Three. Journal or conference name.
+               <a href="https://doi.org/...">DOI</a></p>
+          </li>
+        </ul>
+      -->
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <div class="entries">
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Infrastructure Systems Engineering, CEGE 4214 <span class="where">Teaching Assistant</span></p>
+            <span class="when">Fall 2025, Fall 2026</span>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Computer Applications I, CEGE 3101 <span class="where">Teaching Assistant</span></p>
+            <span class="when">Spring 2024</span>
+          </div>
+          <p>Held office hours, graded, and supported students working in Python and spreadsheet tools.</p>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Undergraduate research mentor <span class="where">Industrial and Systems Engineering</span></p>
+          </div>
+          <p>Supervised a student through a semester of research credit.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="service">
+      <h2>Service</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Event Coordinator <span class="where">INFORMS Student Chapter, University of Minnesota</span></p>
+          </div>
+          <p>Organize chapter events and the chapter seminar series, including scheduling speakers and running logistics.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Last updated September 2026</span>
+    <span>Built with plain HTML and CSS</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
