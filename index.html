@@ -6,81 +6,58 @@
 <meta name="description" content="Nastaran Tork, Ph.D. candidate in transportation engineering at the University of Minnesota. Optimization, machine learning, and open source decision tools for transportation and logistics systems.">
 <meta name="color-scheme" content="light dark">
 <title>Nastaran Tork</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
-</head>
-<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
 <style>
   :root {
-    --paper:    #F4F6F3;
-    --tint:     #EAEFEA;
-    --card:     #FFFFFF;
-    --ink:      #101815;
-    --ink-2:    #3F4F48;
-    --ink-3:    #6A7A72;
-    --rule:     #D6DED8;
-    --rule-2:   #C6D1C9;
-    --accent:   #12604B;
-    --accent-2: #0B4536;
-    --accent-w: #DCEBE3;
-    --brass:    #8D6117;
-    --brass-w:  #F1E7D1;
-    --on-accent:#F2F7F4;
-    --dot:      rgba(18,96,75,.11);
-    --glow-a:   rgba(18,96,75,.15);
-    --glow-b:   rgba(141,97,23,.11);
-    --bar:      rgba(244,246,243,.86);
-    --shadow:   0 1px 2px rgba(16,24,21,.05), 0 8px 24px -14px rgba(16,24,21,.22);
-    --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --paper:     #F9FAF9;
+    --ink:       #1A2420;
+    --ink-2:     #434F49;
+    --ink-3:     #6A766F;
+    --rule:      #DDE3DF;
+    --rule-2:    #C9D2CC;
+    --accent:    #0E5C46;
+    --accent-2:  #083F30;
+    --accent-w:  #E4EFE9;
+    --on-accent: #FFFFFF;
+    --bar:       rgba(249,250,249,.9);
+    --serif: "Source Serif 4", "Source Serif Pro", Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --sans:  "Public Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --rail: 190px;
+    --gutter: 34px;
+    --gap: 48px;
     color-scheme: light;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper:    #0C110F;
-      --tint:     #111917;
-      --card:     #141D1A;
-      --ink:      #E6EBE6;
-      --ink-2:    #A3B0A8;
-      --ink-3:    #78877E;
-      --rule:     #212B26;
-      --rule-2:   #2C3833;
-      --accent:   #63C39F;
-      --accent-2: #8AD7B9;
-      --accent-w: #16261F;
-      --brass:    #D6A34A;
-      --brass-w:  #26200F;
-      --on-accent:#0C110F;
-      --dot:      rgba(99,195,159,.10);
-      --glow-a:   rgba(99,195,159,.13);
-      --glow-b:   rgba(214,163,74,.09);
-      --bar:      rgba(12,17,15,.86);
-      --shadow:   0 1px 2px rgba(0,0,0,.4), 0 10px 26px -16px rgba(0,0,0,.8);
+      --paper:     #0F1412;
+      --ink:       #E7ECE8;
+      --ink-2:     #AAB6AF;
+      --ink-3:     #7F8C85;
+      --rule:      #25302B;
+      --rule-2:    #33403A;
+      --accent:    #5FC29E;
+      --accent-2:  #86D6B7;
+      --accent-w:  #16241E;
+      --on-accent: #0B1210;
+      --bar:       rgba(15,20,18,.9);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --paper:    #0C110F;
-    --tint:     #111917;
-    --card:     #141D1A;
-    --ink:      #E6EBE6;
-    --ink-2:    #A3B0A8;
-    --ink-3:    #78877E;
-    --rule:     #212B26;
-    --rule-2:   #2C3833;
-    --accent:   #63C39F;
-    --accent-2: #8AD7B9;
-    --accent-w: #16261F;
-    --brass:    #D6A34A;
-    --brass-w:  #26200F;
-    --on-accent:#0C110F;
-    --dot:      rgba(99,195,159,.10);
-    --glow-a:   rgba(99,195,159,.13);
-    --glow-b:   rgba(214,163,74,.09);
-    --bar:      rgba(12,17,15,.86);
-    --shadow:   0 1px 2px rgba(0,0,0,.4), 0 10px 26px -16px rgba(0,0,0,.8);
+    --paper:     #0F1412;
+    --ink:       #E7ECE8;
+    --ink-2:     #AAB6AF;
+    --ink-3:     #7F8C85;
+    --rule:      #25302B;
+    --rule-2:    #33403A;
+    --accent:    #5FC29E;
+    --accent-2:  #86D6B7;
+    --accent-w:  #16241E;
+    --on-accent: #0B1210;
+    --bar:       rgba(15,20,18,.9);
     color-scheme: dark;
   }
 
@@ -93,318 +70,276 @@
 
   body {
     margin: 0; background: var(--paper); color: var(--ink);
-    font-family: var(--sans); font-size: 15px; line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
+    font-family: var(--serif); font-size: 1.0625rem; line-height: 1.64;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
   img { max-width: 100%; }
-  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-  a:hover { color: var(--accent-2); }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+  a:hover { color: var(--accent-2); text-decoration-color: currentColor; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
   /* ---------- top bar ---------- */
 
-  .edge { height: 3px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 34%, var(--brass) 72%, var(--accent) 100%); }
-
   .topbar {
     position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
-    background: var(--bar); backdrop-filter: saturate(170%) blur(12px);
+    background: var(--bar); backdrop-filter: saturate(160%) blur(10px);
     border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
   }
   .topbar-inner {
-    max-width: 1000px; margin: 0 auto; padding: 0 24px;
-    display: flex; align-items: center; gap: 18px; min-height: 54px;
+    max-width: 1040px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; gap: 18px; min-height: 56px;
   }
   .mark {
-    font-family: var(--serif); font-weight: 600; font-size: 1.02rem;
-    letter-spacing: -.01em; text-decoration: none; color: var(--ink); white-space: nowrap;
+    font-family: var(--serif); font-weight: 600; font-size: 1.08rem;
+    letter-spacing: -.005em; text-decoration: none; color: var(--ink); white-space: nowrap;
   }
-  .topnav { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .topnav { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
   .topnav::-webkit-scrollbar { display: none; }
   .topnav a {
-    font-size: .8rem; color: var(--ink-2); text-decoration: none;
+    font-size: .84rem; font-weight: 500; color: var(--ink-2); text-decoration: none;
     padding: 6px 10px; border-radius: 4px; white-space: nowrap;
-    transition: background .15s ease, color .15s ease;
+    transition: color .15s ease, background-color .15s ease;
   }
   .topnav a:hover { color: var(--accent); background: var(--accent-w); }
-  .topnav a.cv { color: var(--accent); font-weight: 500; }
+  .topnav a.cv { color: var(--accent); font-weight: 600; }
 
   .themer {
-    flex: none; border: 1px solid var(--rule-2); background: var(--card);
+    flex: none; border: 1px solid var(--rule-2); background: transparent;
     color: var(--ink-2); border-radius: 4px; cursor: pointer;
-    width: 32px; height: 29px; font-size: .82rem; line-height: 1;
+    width: 32px; height: 30px; font-size: 1.05rem; line-height: 1;
     display: grid; place-items: center; padding: 0;
     transition: color .15s ease, border-color .15s ease;
   }
   .themer:hover { color: var(--accent); border-color: var(--accent); }
 
-  /* ---------- bands ---------- */
+  /* ---------- page frame and the route line ---------- */
 
-  .band { position: relative; }
-  .band--tint { background: var(--tint); border-block: 1px solid var(--rule); }
-  .band > .wrap { max-width: 1000px; margin: 0 auto; padding-inline: 24px; padding-block: 48px; }
+  .band > .wrap {
+    position: relative; max-width: 1040px; margin: 0 auto;
+    padding: 56px 24px 8px;
+  }
+  /* the line that runs down the left edge, one segment per band so they join */
+  .band > .wrap::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 28px; width: 2px;
+    background: var(--rule-2);
+  }
+  .band:last-of-type > .wrap { padding-bottom: 56px; }
 
-  .band--hero {
-    background:
-      radial-gradient(820px 400px at 10% -18%, var(--glow-a), transparent 62%),
-      radial-gradient(640px 340px at 94% 4%, var(--glow-b), transparent 58%),
-      radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0) 0 0 / 24px 24px,
-      var(--paper);
+  section { scroll-margin-top: 76px; }
+  .band > .wrap > section {
+    display: grid; grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: var(--gap); margin-left: var(--gutter); padding-bottom: 48px;
     border-bottom: 1px solid var(--rule);
   }
-  .band--hero > .wrap { padding-block: 58px 44px; }
+  .band:last-of-type > .wrap > section { border-bottom: 0; padding-bottom: 0; }
+  .band > .wrap > section > * { grid-column: 2; }
 
-  h2 {
-    font-family: var(--mono); font-weight: 500; font-size: .7rem;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
-    margin: 0 0 22px; padding-bottom: 9px; position: relative;
-    border-bottom: 1px solid var(--rule);
+  .band > .wrap > section > h2 {
+    grid-column: 1; grid-row: 1 / span 60;
+    position: sticky; top: 84px; align-self: start;
+    margin: 0; font-family: var(--sans); font-weight: 600; font-size: 1rem;
+    line-height: 1.3; color: var(--ink); letter-spacing: 0; text-wrap: balance;
   }
-  h2::after {
-    content: ""; position: absolute; left: 0; bottom: -1px; width: 56px; height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--brass)); border-radius: 2px;
+  /* the stop on the line */
+  .band > .wrap > section > h2::before {
+    content: ""; position: absolute; left: calc(var(--gutter) * -1); top: .24em;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--accent);
+    transition: background-color .25s ease, transform .25s ease;
   }
-  p { max-width: 70ch; }
-  section { scroll-margin-top: 72px; }
+  .band > .wrap > section.here > h2::before { background: var(--accent); transform: scale(1.18); }
+
+  p { max-width: 66ch; margin: 0 0 1em; }
+  section p:last-child { margin-bottom: 0; }
 
   /* ---------- hero ---------- */
 
-  .hero { display: flex; gap: 38px; align-items: flex-start; }
-  .portrait { flex: none; width: 150px; }
-  .portrait img, .monogram { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; }
-  .portrait img { border: 3px solid var(--card); box-shadow: var(--shadow); }
-  .monogram {
-    background: linear-gradient(145deg, var(--accent) 0%, var(--accent-2) 100%);
-    color: var(--on-accent); font-family: var(--serif); font-weight: 500; font-size: 3.1rem;
-    display: grid; place-items: center; letter-spacing: .03em; box-shadow: var(--shadow);
+  .band--hero > .wrap { padding-top: 64px; padding-bottom: 56px; }
+  .hero { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); column-gap: var(--gap); margin-left: var(--gutter); align-items: start; position: relative; }
+  .hero::before {
+    content: ""; position: absolute; left: calc(var(--gutter) * -1 - 2px); top: 1.05em;
+    width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 4px var(--paper);
   }
+  .portrait { width: 100%; }
+  .portrait img { display: block; width: 100%; max-width: 190px; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 6px; }
   .hero-body { min-width: 0; }
-  .eyebrow {
-    font-family: var(--mono); font-size: .68rem; letter-spacing: .16em;
-    text-transform: uppercase; color: var(--brass); margin: 0 0 10px;
-  }
+  .eyebrow { margin: 0 0 6px; font-family: var(--sans); font-size: .9rem; color: var(--ink-3); }
   .name {
-    font-family: var(--serif); font-weight: 600;
-    font-size: clamp(2.2rem, 5.6vw, 3.1rem); line-height: 1.04;
-    letter-spacing: -.022em; margin: 0; text-wrap: balance;
+    font-weight: 600; font-size: clamp(2.5rem, 6vw, 3.6rem); line-height: 1.04;
+    letter-spacing: -.02em; margin: 0; text-wrap: balance;
   }
-  .title { margin: 10px 0 0; color: var(--ink-2); font-size: 1rem; }
+  .title { margin: 14px 0 0; max-width: none; font-family: var(--sans); font-size: .98rem; line-height: 1.55; color: var(--ink-2); }
   .title strong { font-weight: 600; color: var(--ink); }
-  .pitch { margin: 18px 0 24px; font-size: 1.05rem; line-height: 1.7; max-width: 58ch; color: var(--ink-2); }
+  .pitch { margin: 22px 0 28px; font-size: 1.28rem; line-height: 1.5; max-width: 34em; color: var(--ink); }
 
-  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-  .links a {
-    display: inline-block; font-family: var(--mono); font-size: .76rem;
-    text-decoration: none; color: var(--ink-2);
-    border: 1px solid var(--rule-2); background: var(--card);
-    border-radius: 4px; padding: 6px 11px;
-    transition: color .15s ease, border-color .15s ease, transform .15s ease;
-  }
-  .links a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+  .links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin: 0; padding: 0; list-style: none; font-family: var(--sans); font-size: .9rem; }
+  .links a { color: var(--ink-2); font-weight: 500; text-decoration-color: var(--rule-2); }
+  .links a:hover { color: var(--accent); text-decoration-color: currentColor; }
   .links a.primary {
-    color: var(--on-accent); border-color: transparent; font-weight: 500;
-    background: linear-gradient(145deg, var(--accent), var(--accent-2));
+    display: inline-block; text-decoration: none; font-weight: 600;
+    background: var(--accent); color: var(--on-accent);
+    border-radius: 4px; padding: 8px 16px; transition: background-color .15s ease;
   }
-  .links a.primary:hover { color: var(--on-accent); filter: brightness(1.08); }
+  .links a.primary:hover { background: var(--accent-2); color: var(--on-accent); }
 
-  /* ---------- at a glance ---------- */
+  /* ---------- dated lists ---------- */
 
-  .glance {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-    margin: 38px 0 0; padding: 0; list-style: none;
-    background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden;
+  .news, .talks, .awards { list-style: none; margin: 0; padding: 0; }
+  .news li, .talks li, .awards li {
+    display: grid; grid-template-columns: 84px minmax(0, 1fr); column-gap: 20px;
+    padding: 0 0 14px;
   }
-  .glance li { background: var(--card); padding: 15px 16px; }
-  .glance b {
-    display: block; font-family: var(--serif); font-weight: 600;
-    font-size: 1.75rem; line-height: 1.1; color: var(--accent);
-    font-variant-numeric: tabular-nums;
+  .news li:last-child, .talks li:last-child, .awards li:last-child { padding-bottom: 0; }
+  .date, .when {
+    font-family: var(--sans); font-size: .84rem; color: var(--ink-3);
+    font-variant-numeric: tabular-nums lining-nums; padding-top: .22em;
   }
-  .glance span {
-    display: block; margin-top: 3px; font-family: var(--mono);
-    font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
-  }
+  .what strong, .talks em { font-weight: 600; font-style: normal; color: var(--ink); }
+  .awards .what { font-weight: 600; }
+  .awards .what span { display: block; font-weight: 400; color: var(--ink-2); font-size: .98rem; margin-top: 1px; }
 
-  /* ---------- news ---------- */
+  /* ---------- research ---------- */
 
-  .news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .news li {
-    display: grid; grid-template-columns: 92px 1fr; gap: 20px;
-    padding: 10px 0; border-bottom: 1px solid var(--rule);
-  }
-  .news li:last-child { border-bottom: 0; }
-  .news .date {
-    font-family: var(--mono); font-size: .74rem; color: var(--brass);
-    font-variant-numeric: tabular-nums; padding-top: 2px;
-  }
-  .news .what { font-size: .93rem; color: var(--ink-2); }
-  .news .what strong { color: var(--ink); font-weight: 600; }
-
-  /* ---------- interests ---------- */
-
-  .interests { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-  .interest {
-    background: var(--card); border: 1px solid var(--rule);
-    border-radius: 6px; padding: 15px 16px 16px 19px; position: relative; overflow: hidden;
-  }
-  .interest::before {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-    background: linear-gradient(180deg, var(--accent), var(--brass));
-  }
-  .interest h3 { margin: 0; font-size: .93rem; font-weight: 600; }
-  .interest p { margin: 4px 0 0; font-size: .87rem; color: var(--ink-2); max-width: none; }
+  .interests { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 36px; }
+  .interest h3 { margin: 0 0 3px; font-size: 1.04rem; font-weight: 600; line-height: 1.35; }
+  .interest p { margin: 0; font-size: .98rem; color: var(--ink-2); max-width: none; line-height: 1.55; }
 
   /* ---------- publications ---------- */
 
-  .pubs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; counter-reset: pub; }
-  .pub { display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
-  .pub::before {
-    counter-increment: pub; content: "[" counter(pub) "]";
-    font-family: var(--mono); font-size: .75rem; color: var(--accent); padding-top: 3px;
-  }
-  .pub h3 { margin: 0; font-size: .97rem; font-weight: 600; line-height: 1.45; }
-  .pub .authors { margin: 4px 0 0; font-size: .87rem; color: var(--ink-2); max-width: none; }
-  .pub .authors .me { color: var(--ink); font-weight: 600; }
-  .pub .venue { margin: 2px 0 0; font-size: .87rem; color: var(--ink-2); font-style: italic; max-width: none; }
-  .pub .actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-  .pub .actions a {
-    font-family: var(--mono); font-size: .71rem; text-decoration: none;
-    border: 1px solid var(--rule-2); background: var(--card);
-    border-radius: 4px; padding: 3px 9px; color: var(--ink-2);
-  }
-  .pub .actions a:hover { color: var(--accent); border-color: var(--accent); }
-  .pub .actions .status {
-    font-family: var(--mono); font-size: .71rem; text-decoration: none;
-    border: 1px solid var(--brass); border-radius: 4px; padding: 3px 9px;
-    color: var(--brass); background: var(--brass-w);
-  }
-
-  .talks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .talks li {
-    display: grid; grid-template-columns: 92px 1fr; gap: 20px;
-    padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: .9rem; color: var(--ink-2);
-  }
-  .talks li:last-child { border-bottom: 0; }
-  .talks .date { font-family: var(--mono); font-size: .74rem; color: var(--brass); font-variant-numeric: tabular-nums; padding-top: 2px; }
-  .talks em { color: var(--ink); font-style: normal; font-weight: 600; }
-
   .subhead {
-    font-family: var(--mono); font-size: .67rem; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--ink-3); margin: 34px 0 14px;
-    padding-bottom: 6px; border-bottom: 1px dashed var(--rule);
+    font-family: var(--sans); font-weight: 600; font-size: .86rem; color: var(--ink-3);
+    margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); max-width: none;
   }
-  .subhead:first-of-type { margin-top: 0; }
+  section > .subhead:first-of-type { margin-top: 0; }
+  .pubs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+  .pub h3 { margin: 0; font-size: 1.06rem; font-weight: 600; line-height: 1.38; text-wrap: pretty; }
+  .pub .authors { margin: 4px 0 0; font-size: .97rem; color: var(--ink-2); max-width: none; line-height: 1.5; }
+  .pub .authors .me { color: var(--ink); font-weight: 600; }
+  .pub .venue { margin: 1px 0 0; font-size: .97rem; color: var(--ink-2); font-style: italic; max-width: none; line-height: 1.5; }
+  .pub .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin-top: 7px; font-family: var(--sans); font-size: .82rem; }
+  .pub .actions a { font-weight: 500; }
+  .pub .actions .status {
+    text-decoration: none; font-weight: 500; color: var(--ink-2);
+    border: 1px solid var(--rule-2); border-radius: 3px; padding: 1px 8px;
+  }
+  .pub .actions a.status { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .pub .actions a.status:hover { background: var(--accent-w); }
 
   /* ---------- software ---------- */
 
-  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
-  .project {
-    border: 1px solid var(--rule); border-radius: 6px; padding: 18px 19px 19px;
-    background: linear-gradient(170deg, var(--card) 0%, var(--tint) 170%);
-    box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 9px;
-  }
-  .project h3 { margin: 0; font-size: .97rem; font-weight: 600; }
-  .project p { margin: 0; font-size: .88rem; color: var(--ink-2); max-width: none; }
-  .stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
-  .stack span {
-    font-family: var(--mono); font-size: .68rem; color: var(--accent);
-    background: var(--accent-w); border-radius: 999px; padding: 2px 9px;
-  }
-  .project .link { font-family: var(--mono); font-size: .75rem; margin-top: auto; padding-top: 6px; }
+  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .project { border: 1px solid var(--rule-2); border-radius: 6px; padding: 18px 20px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .project h3 { margin: 0; font-size: 1.06rem; font-weight: 600; line-height: 1.35; }
+  .project p { margin: 0; font-size: .97rem; color: var(--ink-2); max-width: none; line-height: 1.55; }
+  .stack { display: flex; flex-wrap: wrap; font-family: var(--sans); font-size: .8rem; color: var(--ink-3); }
+  .stack span:not(:last-child)::after { content: ", "; white-space: pre; }
+  .project .link { font-family: var(--sans); font-size: .86rem; font-weight: 500; margin-top: auto; padding-top: 6px; }
 
   /* ---------- skills ---------- */
 
-  .skills { display: flex; flex-direction: column; gap: 16px; margin: 0; }
-  .skillrow { display: grid; grid-template-columns: 178px 1fr; gap: 20px; align-items: baseline; }
-  .skillrow dt {
-    font-family: var(--mono); font-size: .72rem; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--brass);
-  }
-  .skillrow dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .skillrow dd span {
-    font-size: .82rem; color: var(--ink-2); background: var(--card);
-    border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px;
-  }
+  .skills { display: flex; flex-direction: column; gap: 14px; margin: 0; }
+  .skillrow { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 20px; align-items: baseline; }
+  .skillrow dt { font-family: var(--sans); font-size: .86rem; font-weight: 600; color: var(--ink); }
+  .skillrow dd { margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.55; }
+  .skillrow dd span:not(:last-child)::after { content: ", "; white-space: pre; }
 
-  /* ---------- entries ---------- */
+  /* ---------- experience, education, teaching ---------- */
 
   .entries { display: flex; flex-direction: column; gap: 26px; }
-  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; flex-wrap: wrap; }
-  .entry-title { font-size: 1rem; font-weight: 600; margin: 0; line-height: 1.45; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 18px; flex-wrap: wrap; }
+  .entry-title { font-size: 1.06rem; font-weight: 600; margin: 0; line-height: 1.42; }
   .entry-title .where { font-weight: 400; color: var(--ink-2); }
   .entry-title .where::before { content: ", "; }
-  .when {
-    font-family: var(--mono); font-size: .75rem; color: var(--brass);
-    font-variant-numeric: tabular-nums; white-space: nowrap;
-  }
-  .entry p { margin: 6px 0 0; color: var(--ink-2); font-size: .92rem; }
-  .entry .meta { font-family: var(--mono); font-size: .76rem; color: var(--ink-3); margin-top: 5px; }
-  .entry ul { margin: 9px 0 0; padding-left: 18px; color: var(--ink-2); font-size: .92rem; max-width: 70ch; }
-  .entry li { margin-bottom: 5px; }
-  .entry li::marker { color: var(--accent); }
-  .course { font-size: .87rem; color: var(--ink-3); margin-top: 6px; }
-  .course b { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  .when { white-space: nowrap; padding-top: 0; }
+  .entry p { margin: 5px 0 0; color: var(--ink-2); font-size: .99rem; max-width: 64ch; }
+  .entry .meta { font-family: var(--sans); font-size: .84rem; color: var(--ink-3); margin-top: 4px; }
+  .entry ul { margin: 8px 0 0; padding-left: 1.15em; color: var(--ink-2); font-size: .99rem; max-width: 64ch; }
+  .entry li { margin-bottom: 5px; padding-left: .1em; }
+  .entry li::marker { color: var(--ink-3); }
+  .course { font-size: .94rem; color: var(--ink-3); margin-top: 6px; }
+  .course b { font-family: var(--sans); font-size: .82rem; font-weight: 600; color: var(--ink-2); margin-right: .35em; }
 
-  .awards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-  .awards li {
-    display: grid; grid-template-columns: 92px 1fr; gap: 20px;
-    padding: 13px 15px; border: 1px solid var(--rule); border-radius: 6px;
-    background: linear-gradient(120deg, var(--brass-w) 0%, var(--card) 42%);
-  }
-  .awards .date { font-family: var(--mono); font-size: .74rem; color: var(--brass); font-variant-numeric: tabular-nums; padding-top: 2px; }
-  .awards .what { font-size: .93rem; font-weight: 600; }
-  .awards .what span { display: block; color: var(--ink-2); font-size: .87rem; font-weight: 400; margin-top: 2px; }
-
-  .plainlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-  .plainlist li { font-size: .92rem; color: var(--ink-2); padding-left: 16px; position: relative; }
-  .plainlist li::before {
-    content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px;
-    border-radius: 50%; background: var(--accent);
-  }
+  .plainlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .plainlist li { font-size: .99rem; color: var(--ink-2); padding-left: 1.1em; position: relative; }
+  .plainlist li::before { content: ""; position: absolute; left: 0; top: .72em; width: 5px; height: 5px; border-radius: 50%; background: var(--ink-3); }
   .plainlist b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- writing (hidden until the first post exists) ---------- */
+
+  .posts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .post { border-bottom: 1px solid var(--rule); }
+  .post:first-child { border-top: 1px solid var(--rule); }
+  .post > summary {
+    cursor: pointer; padding: 14px 0; list-style: none;
+    display: grid; grid-template-columns: 84px minmax(0, 1fr) 18px; gap: 20px; align-items: baseline;
+  }
+  .post > summary::-webkit-details-marker { display: none; }
+  .post > summary:hover .ttl { color: var(--accent); }
+  .post .ttl { font-size: 1.06rem; font-weight: 600; }
+  .post .sub { display: block; font-weight: 400; color: var(--ink-2); font-size: .97rem; margin-top: 3px; }
+  .post .chev { font-family: var(--sans); font-size: .8rem; color: var(--ink-3); justify-self: end; }
+  .post[open] .chev { color: var(--accent); }
+  .post .body { padding: 2px 0 20px 104px; }
+  .post .body p { font-size: 1rem; color: var(--ink-2); margin: 0 0 12px; max-width: 64ch; }
+  .post .body h4 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 18px 0 6px; }
+  .post .body ul { font-size: 1rem; color: var(--ink-2); padding-left: 1.15em; margin: 0 0 12px; max-width: 64ch; }
+  .post .body li { margin-bottom: 5px; }
 
   /* ---------- footer ---------- */
 
-  footer {
-    border-top: 1px solid var(--rule);
-    background: radial-gradient(700px 240px at 80% 120%, var(--glow-b), transparent 60%), var(--tint);
-  }
+  footer { border-top: 1px solid var(--rule); font-family: var(--sans); }
   .foot-inner {
-    max-width: 1000px; margin: 0 auto;
-    padding: 30px 24px calc(30px + env(safe-area-inset-bottom, 0px));
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    font-family: var(--mono); font-size: .74rem; color: var(--ink-3);
+    max-width: 1040px; margin: 0 auto;
+    padding: 28px 24px calc(28px + env(safe-area-inset-bottom, 0px));
+    display: flex; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap;
+    font-size: .84rem; color: var(--ink-3);
   }
-  .foot-inner a { color: var(--ink-2); text-decoration: none; }
-  .foot-inner a:hover { color: var(--accent); }
-  .foot-links { display: flex; gap: 15px; flex-wrap: wrap; }
+  .foot-inner a { color: var(--ink-2); text-decoration: none; font-weight: 500; }
+  .foot-inner a:hover { color: var(--accent); text-decoration: underline; }
+  .foot-links { display: flex; gap: 8px 18px; flex-wrap: wrap; }
 
-  @media (max-width: 860px) {
-    .glance { grid-template-columns: repeat(2, 1fr); }
+  /* ---------- narrower screens ---------- */
+
+  @media (max-width: 900px) {
+    :root { --rail: 150px; --gap: 32px; }
+    .interests, .projects { grid-template-columns: 1fr; }
   }
   @media (max-width: 760px) {
-    .band > .wrap { padding-inline: 20px; padding-block: 36px; }
-    .band--hero > .wrap { padding-block: 40px 34px; }
-    .topbar-inner, .foot-inner { padding-inline: 20px; }
-    .hero { flex-direction: column; gap: 24px; }
-    .portrait, .portrait img, .monogram { width: 112px; }
-    .monogram, .portrait img { height: 112px; font-size: 2.3rem; }
+    :root { --gutter: 28px; }
+    .band > .wrap { padding: 40px 16px 4px; }
+    .band > .wrap::before { left: 20px; }
+    .band:last-of-type > .wrap { padding-bottom: 40px; }
+    .topbar-inner, .foot-inner { padding-inline: 16px; }
     .mark { display: none; }
     .topnav { margin-left: 0; }
-    .skillrow { grid-template-columns: 1fr; gap: 7px; }
-    .news li, .talks li, .awards li { grid-template-columns: 1fr; gap: 3px; }
-    .pub { grid-template-columns: 1fr; gap: 4px; }
-    .pub::before { display: none; }
+
+    .band > .wrap > section { display: block; padding-bottom: 36px; }
+    .band > .wrap > section > h2 { position: relative; top: auto; margin: 0 0 16px; }
+    .band--hero > .wrap { padding-top: 44px; padding-bottom: 40px; }
+    .hero { display: block; }
+    .hero::before { top: .3em; }
+    .portrait { margin-bottom: 20px; }
+    .portrait img { max-width: 124px; }
+    .pitch { font-size: 1.15rem; }
+    .news li, .talks li, .awards li { grid-template-columns: 1fr; row-gap: 1px; }
+    .skillrow { grid-template-columns: 1fr; row-gap: 2px; }
+    .post > summary { grid-template-columns: minmax(0, 1fr) 18px; gap: 4px 12px; }
+    .post .date { grid-column: 1 / -1; }
+    .post .body { padding-left: 0; }
   }
 
   @media print {
-    .topbar, .edge, .themer { display: none; }
-    body { font-size: 10pt; color: #000; background: #fff; }
-    .band--hero, .band--tint, footer { background: #fff; }
+    .topbar, .themer, .band > .wrap::before, .band > .wrap > section > h2::before, .hero::before { display: none; }
+    body { font-size: 10.5pt; color: #000; background: #fff; }
+    .band > .wrap > section > h2 { position: static; }
     .project, .pub, .entry, .awards li { break-inside: avoid; }
   }
+
 </style>
 
-<div class="edge"></div>
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -415,6 +350,8 @@
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#software">Software</a>
+      <!-- nav-writing: uncomment the next line when the Writing section goes live -->
+      <!-- <a href="#writing">Writing</a> -->
       <a href="#skills">Skills</a>
       <a href="#awards">Awards</a>
       <a href="#experience">Experience</a>
@@ -435,7 +372,7 @@
       <div class="hero-body">
         <p class="eyebrow">University of Minnesota, Twin Cities</p>
         <h1 class="name">Nastaran Tork</h1>
-        <p class="title"><strong>Ph.D. Candidate, Civil Engineering (Transportation)</strong><br>M.S., Data Science in Operations Research · Transit Lab</p>
+        <p class="title"><strong>Ph.D. Candidate, Civil Engineering (Transportation)</strong><br>M.S., Data Science in Operations Research, Transit Lab</p>
         <p class="pitch">I build optimization and machine learning models for large transportation and logistics systems, then turn them into open source software that public agencies run on their own data.</p>
 
         <ul class="links">
@@ -444,17 +381,11 @@
           <li><a href="https://github.com/NastaranTork">GitHub</a></li>
           <li><a href="https://www.linkedin.com/in/nastaran-tork-5a67241aa/">LinkedIn</a></li>
           <!-- Replace USERNAME with your Google Scholar id, or delete this line. -->
-          <li><a href="https://scholar.google.com/citations?user=USERNAME">Google Scholar</a></li>
+          <li><a href="https://scholar.google.com/citations?user=s7oPp-sAAAAJ">Google Scholar</a></li>
         </ul>
       </div>
     </header>
 
-    <ul class="glance">
-      <li><b>8</b><span>Peer-reviewed papers</span></li>
-      <li><b>6</b><span>Talks and posters</span></li>
-      <li><b>2</b><span>Open source tools</span></li>
-      <li><b>7</b><span>Awards and fellowships</span></li>
-    </ul>
   </div>
 </div>
 
@@ -462,9 +393,9 @@
   <div class="wrap">
     <section id="about">
       <h2>About</h2>
-      <p>I am a Ph.D. candidate in transportation engineering at the University of Minnesota, working in the Transit Lab with Dr. Alireza Khani, and I hold a master's in data science and operations research from Industrial and Systems Engineering. My first degree was in electrical engineering, where I worked on neural control for autonomous vehicles.</p>
-      <p>My research sits between optimization and applied data science. I formulate large planning problems under budget and operational constraints, such as where to place charging infrastructure and how to stage a fleet transition over several years, and I solve them on real agency data rather than synthetic instances. I also work on mechanism design for systems where people choose whether to participate, including incentive compatible bike rebalancing combined with local store deliveries.</p>
-      <p>The part I care most about is what happens after the model works. Two of my projects shipped as open source tools that Minnesota public agencies use directly, and the underlying study became a state technical report and a public webinar. I am looking for research and applied data science roles where modeling, data engineering, and shipping the result are the same job.</p>
+      <p>I am a Ph.D. candidate in transportation engineering at the University of Minnesota, working in the Transit Lab with Dr. Alireza Khani, and I hold a master's in <strong>data science and operations research</strong> from Industrial and Systems Engineering. My first degree was in electrical engineering, where I worked on neural control for autonomous vehicles.</p>
+      <p>My research focuses on <strong>logistics and fleet decisions at scale</strong>. I turn messy, real-world planning questions into <strong>optimization models</strong> that decide where to place charging infrastructure, how large a fleet to buy, and how to stage a multi-year transition within a fixed budget. I build and test these models on <strong>real agency data</strong>, not synthetic instances, so the answers hold up under real operating constraints. I also design <strong>incentive-compatible mechanisms</strong> for systems that depend on people choosing to participate, including crowd-shipped bike rebalancing combined with <strong>last-mile store deliveries</strong>.</p>
+      <p>The part I care most about is what happens after the model works. Two of my projects shipped as <strong>open source tools that Minnesota public agencies use directly</strong>, and the underlying study became a state technical report and a public webinar. I am looking for research and applied data science roles where <strong>modeling, data engineering, and shipping the result</strong> are the same job.</p>
     </section>
   </div>
 </div>
@@ -555,6 +486,17 @@
       <ol class="pubs">
         <li class="pub">
           <div>
+            <h3>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</h3>
+            <p class="authors"><span class="me">Tork, N.</span>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
+            <p class="venue">Transport Policy</p>
+            <div class="actions">
+              <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=s7oPp-sAAAAJ&amp;citation_for_view=s7oPp-sAAAAJ:Y0pCki6q_DkC">Paper</a>
+              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Preprint</a>
+            </div>
+          </div>
+        </li>
+        <li class="pub">
+          <div>
             <h3>Efficient Urban Transit Systems: Bridging Freight Logistics and Passenger Transport</h3>
             <p class="authors"><span class="me">Tork, N.</span>, Baek, K., &amp; Khani, A.</p>
             <p class="venue">Transportation Research Record, 2679(11), 782–804, 2025</p>
@@ -587,17 +529,6 @@
 
       <p class="subhead">Under review and in revision</p>
       <ol class="pubs">
-        <li class="pub">
-          <div>
-            <h3>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
-            <p class="venue">Transport Policy</p>
-            <div class="actions">
-              <a class="status" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Second revision</a>
-              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Preprint</a>
-            </div>
-          </div>
-        </li>
         <li class="pub">
           <div>
             <h3>Psychological and Operational Barriers to Public Electric Vehicle Fleet Adoption in Minnesota</h3>
@@ -732,6 +663,54 @@
   </div>
 </div>
 
+<!--
+  ================= WRITING SECTION =================
+  Ready to go. When your first post is written, do two things.
+
+  1. Delete the line that says REMOVE-THIS-LINE-TO-PUBLISH below, and the
+     matching one at the end of this block. That turns the section on.
+  2. In the top navigation, uncomment the Writing link (search for "nav-writing").
+
+  Each post is one <details> block. Copy the whole <details> to add another,
+  newest first. The id on it gives you a shareable link, for example
+  https://nastarantork.github.io/#agents-and-fleet-models
+  =================================================== REMOVE-THIS-LINE-TO-PUBLISH
+
+<div class="band">
+  <div class="wrap">
+    <section id="writing">
+      <h2>Writing</h2>
+      <ul class="posts">
+
+        <li>
+          <details class="post" id="agents-and-fleet-models">
+            <summary>
+              <span class="date">Oct 2026</span>
+              <span class="ttl">Post title goes here
+                <span class="sub">One sentence saying what the post argues, shown before anyone opens it.</span>
+              </span>
+              <span class="chev" aria-hidden="true">+</span>
+            </summary>
+            <div class="body">
+              <p>First paragraph.</p>
+              <p>Second paragraph.</p>
+              <h4>A subheading if the post needs one</h4>
+              <p>More text.</p>
+              <ul>
+                <li>A list item, if useful.</li>
+              </ul>
+            </div>
+          </details>
+        </li>
+
+      </ul>
+    </section>
+  </div>
+</div>
+
+  REMOVE-THIS-LINE-TO-PUBLISH =================================================
+-->
+
 <div class="band band--tint">
   <div class="wrap">
     <section id="skills">
@@ -840,12 +819,12 @@
           </div>
           <p class="meta">Principal Investigator: Dr. Alireza Khani</p>
           <ul>
-            <li>Lead the modeling and data work on MnDOT and Local Road Research Board funded projects on public fleet electrification, from raw agency data through optimization models to a published decision tool and a state technical report.</li>
-            <li>Formulate and solve large planning problems for charging infrastructure placement, fleet sizing, and multi-stage electrification under budget constraints, on real fleet and network data.</li>
-            <li>Design incentive compatible mechanisms for integrated bike rebalancing and local store deliveries, and evaluate last-mile strategies combining transit with crowdsourced bikes.</li>
-            <li>Assemble, clean, and validate large transit, freight, and highway corridor datasets, including truck flow data.</li>
-            <li>Release and document open source Python tools used directly by Minnesota public agencies.</li>
-            <li>Publish and present at TRB, INFORMS, IEEE ITSC, and CASPT, and present project results to agency audiences in public webinars.</li>
+            <li>Led the modeling and data work on two <strong>MnDOT funded projects</strong>, one on <strong>public fleet electrification</strong> (with the Local Road Research Board) and one on <strong>statewide truck freight flows</strong>, taking each from raw agency data to models, tools, and findings that agency staff can act on.</li>
+            <li>Built <strong>optimization models</strong> for charger placement, fleet sizing, and multi-year electrification under budget limits, solved on real fleet and network data. The work produced a <strong>public decision tool</strong>, a <strong>state technical report</strong>, and a public webinar for agency audiences.</li>
+            <li>Assembled, cleaned, and validated <strong>large transit, freight, and highway corridor datasets</strong>, including truck flow data, and built network analysis and corridor visualizations that make statewide freight patterns easy to read.</li>
+            <li>Designed <strong>incentive-compatible mechanisms</strong> that combine bike rebalancing with local store deliveries, and evaluated <strong>last-mile strategies</strong> that pair transit with crowdsourced bikes, bridging passenger and freight logistics.</li>
+            <li>Released and documented <strong>open source Python tools</strong> that Minnesota public agencies use directly, so results keep working after the project ends.</li>
+            <li>Helped <strong>write research proposals</strong> by shaping the technical approach, data plan, and methodology. Published and presented at <strong>TRB, INFORMS, IEEE ITSC, and CASPT</strong>.</li>
           </ul>
         </div>
 
@@ -964,7 +943,7 @@
 
 <footer>
   <div class="foot-inner">
-    <span>Nastaran Tork · Minneapolis, MN · Updated September 2026</span>
+    <span>Nastaran Tork, Minneapolis, MN. Updated October 2026</span>
     <span class="foot-links">
       <a href="mailto:tork0100@umn.edu">Email</a>
       <a href="https://github.com/NastaranTork">GitHub</a>
@@ -974,6 +953,14 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  var secs=[].slice.call(document.querySelectorAll('.band > .wrap > section'));
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('here',e.isIntersecting);});},{rootMargin:'-20% 0px -60% 0px'});
+  secs.forEach(function(s){io.observe(s);});
+})();
+</script>
 <script>
   (function () {
     var root = document.documentElement;
