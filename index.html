@@ -8,7 +8,7 @@
 <title>Nastaran Tork</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
 <style>
   :root {
     --paper:     #F9FAF9;
@@ -23,7 +23,9 @@
     --on-accent: #FFFFFF;
     --bar:       rgba(249,250,249,.9);
     --serif: "Source Serif 4", "Source Serif Pro", Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
-    --sans:  "Public Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --sans:  "Bricolage Grotesque", "Public Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --line-2:    #F2A614;
+    --hl:        #FBE3A1;
     --rail: 190px;
     --gutter: 34px;
     --gap: 48px;
@@ -43,6 +45,8 @@
       --accent-w:  #16241E;
       --on-accent: #0B1210;
       --bar:       rgba(15,20,18,.9);
+      --line-2:    #F5B93B;
+      --hl:        rgba(245,185,59,.26);
       color-scheme: dark;
     }
   }
@@ -58,6 +62,8 @@
     --accent-w:  #16241E;
     --on-accent: #0B1210;
     --bar:       rgba(15,20,18,.9);
+    --line-2:    #F5B93B;
+    --hl:      rgba(245,185,59,.26);
     color-scheme: dark;
   }
 
@@ -301,16 +307,82 @@
   .foot-inner a:hover { color: var(--accent); text-decoration: underline; }
   .foot-links { display: flex; gap: 8px 18px; flex-wrap: wrap; }
 
+  /* ---------- the transit line layer ---------- */
+
+  .band > .wrap::before { left: 27px; width: 4px; border-radius: 0; background: var(--accent); }
+  .band--hero > .wrap::before { top: 82px; border-radius: 2px 2px 0 0; }
+  .band:last-of-type > .wrap::before { bottom: 40px; }
+  .band:last-of-type > .wrap::after {
+    content: ""; position: absolute; left: 19px; bottom: 24px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--paper); border: 4px solid var(--accent);
+  }
+  .band > .wrap > section > h2::before {
+    left: calc(var(--gutter) * -1 - 2px); top: .2em; width: 14px; height: 14px;
+    border: 3px solid var(--ink); background: var(--paper);
+  }
+  .band > .wrap > section.here > h2::before { background: var(--line-2); transform: scale(1.2); }
+  .hero::before {
+    left: calc(var(--gutter) * -1 - 5px); top: .9em; width: 20px; height: 20px;
+    background: var(--paper); border: 4px solid var(--accent); box-shadow: none;
+  }
+  .rider {
+    position: fixed; z-index: 5; left: -40px; top: 0; width: 14px; height: 24px; margin: -12px 0 0 -7px;
+    border-radius: 5px; background: var(--line-2); border: 2px solid var(--ink);
+    box-shadow: 0 0 0 3px var(--paper); pointer-events: none;
+  }
+  .rider::before { content: ""; position: absolute; left: 2px; right: 2px; top: 3px; height: 5px; border-radius: 1px; background: var(--ink); opacity: .85; }
+
+  .name { font-family: var(--sans); font-weight: 700; letter-spacing: -.035em; font-size: clamp(2.6rem, 6.4vw, 4rem); line-height: 1; }
+  .mark { font-family: var(--sans); font-weight: 700; letter-spacing: -.02em; }
+  .interest h3, .project h3 { font-family: var(--sans); font-weight: 600; letter-spacing: -.01em; }
+
+  .portrait img { max-width: 168px; margin: 7px; border-radius: 50%; box-shadow: 0 0 0 4px var(--paper), 0 0 0 7px var(--accent); }
+
+  .hero-body { position: relative; }
+  .minimap { position: absolute; right: 0; top: 2px; width: 250px; height: auto; overflow: visible; }
+  .minimap path { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s ease-out forwards; }
+  .minimap .l1 { stroke: var(--accent); }
+  .minimap .l2 { stroke: var(--line-2); animation-delay: .25s; }
+  .minimap .l3 { stroke: var(--rule-2); animation-delay: .5s; }
+  .minimap circle { fill: var(--paper); stroke: var(--ink); stroke-width: 2.5; opacity: 0; animation: pop .3s ease-out 1.2s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes pop { to { opacity: 1; } }
+
+  #about strong { font-weight: 600; background: linear-gradient(transparent 58%, var(--hl) 58%, var(--hl) 94%, transparent 94%); }
+
+  .topnav a { position: relative; }
+  .topnav a:hover { background: transparent; color: var(--ink); }
+  .topnav a::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 3px; border-radius: 2px; background: var(--line-2); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+  .topnav a:hover::after { transform: scaleX(1); }
+
+  .links a.primary { border-radius: 999px; padding: 9px 20px; transition: background-color .15s ease, transform .15s ease; }
+  .links a.primary:hover { transform: translateY(-2px); }
+
+  .interest h3 { display: flex; align-items: baseline; gap: 10px; }
+  .interest h3::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); transform: translateY(-1px); }
+  .interest:nth-child(even) h3::before { background: var(--line-2); }
+  .interest p { padding-left: 20px; }
+
+  .project { border-top: 5px solid var(--accent); transition: transform .18s ease, border-color .18s ease; }
+  .project:nth-child(even) { border-top-color: var(--line-2); }
+  .project:hover { transform: translateY(-3px); }
+
+  .entry li strong { color: var(--ink); font-weight: 600; }
+
   /* ---------- narrower screens ---------- */
 
   @media (max-width: 900px) {
     :root { --rail: 150px; --gap: 32px; }
+    .minimap { display: none; }
+    .portrait img { max-width: 136px; }
     .interests, .projects { grid-template-columns: 1fr; }
   }
   @media (max-width: 760px) {
     :root { --gutter: 28px; }
     .band > .wrap { padding: 40px 16px 4px; }
-    .band > .wrap::before { left: 20px; }
+    .band > .wrap::before { left: 19px; }
+    .band--hero > .wrap::before { top: 56px; }
+    .band:last-of-type > .wrap::after { left: 11px; }
     .band:last-of-type > .wrap { padding-bottom: 40px; }
     .topbar-inner, .foot-inner { padding-inline: 16px; }
     .mark { display: none; }
@@ -320,9 +392,9 @@
     .band > .wrap > section > h2 { position: relative; top: auto; margin: 0 0 16px; }
     .band--hero > .wrap { padding-top: 44px; padding-bottom: 40px; }
     .hero { display: block; }
-    .hero::before { top: .3em; }
+    .hero::before { top: .1em; }
     .portrait { margin-bottom: 20px; }
-    .portrait img { max-width: 124px; }
+    .portrait img { max-width: 116px; }
     .pitch { font-size: 1.15rem; }
     .news li, .talks li, .awards li { grid-template-columns: 1fr; row-gap: 1px; }
     .skillrow { grid-template-columns: 1fr; row-gap: 2px; }
@@ -332,7 +404,7 @@
   }
 
   @media print {
-    .topbar, .themer, .band > .wrap::before, .band > .wrap > section > h2::before, .hero::before { display: none; }
+    .topbar, .themer, .rider, .minimap, .band > .wrap::before, .band > .wrap > section > h2::before, .hero::before { display: none; }
     body { font-size: 10.5pt; color: #000; background: #fff; }
     .band > .wrap > section > h2 { position: static; }
     .project, .pub, .entry, .awards li { break-inside: avoid; }
@@ -361,6 +433,8 @@
   </div>
 </div>
 
+<div class="rider" aria-hidden="true"></div>
+
 <div class="band band--hero" id="top">
   <div class="wrap">
     <header class="hero">
@@ -370,10 +444,19 @@
       </div>
 
       <div class="hero-body">
+        <svg class="minimap" viewBox="0 0 300 125" aria-hidden="true" focusable="false">
+          <path class="l3" pathLength="1" d="M200 14 V112"/>
+          <path class="l2" pathLength="1" d="M60 12 V70 L100 110 H252"/>
+          <path class="l1" pathLength="1" d="M10 100 H90 L130 60 H290"/>
+          <circle cx="10" cy="100" r="5"/><circle cx="50" cy="100" r="5"/><circle cx="90" cy="100" r="7"/>
+          <circle cx="130" cy="60" r="5"/><circle cx="165" cy="60" r="5"/><circle cx="200" cy="60" r="7"/><circle cx="245" cy="60" r="5"/><circle cx="290" cy="60" r="5"/>
+          <circle cx="60" cy="12" r="5"/><circle cx="60" cy="44" r="5"/><circle cx="150" cy="110" r="5"/><circle cx="200" cy="110" r="7"/><circle cx="252" cy="110" r="5"/>
+          <circle cx="200" cy="14" r="5"/>
+        </svg>
         <p class="eyebrow">University of Minnesota, Twin Cities</p>
         <h1 class="name">Nastaran Tork</h1>
         <p class="title"><strong>Ph.D. Candidate, Civil Engineering (Transportation)</strong><br>M.S., Data Science in Operations Research, Transit Lab</p>
-        <p class="pitch">I build optimization and machine learning models for large transportation and logistics systems, then turn them into open source software that public agencies run on their own data.</p>
+        <p class="pitch">I build optimization and machine learning models for large transportation and logistics systems, then turn them into open source tools that public agencies can use on their own data.</p>
 
         <ul class="links">
           <li><a class="primary" href="cv.pdf">Curriculum vitae</a></li>
@@ -394,8 +477,8 @@
     <section id="about">
       <h2>About</h2>
       <p>I am a Ph.D. candidate in transportation engineering at the University of Minnesota, working in the Transit Lab with Dr. Alireza Khani, and I hold a master's in <strong>data science and operations research</strong> from Industrial and Systems Engineering. My first degree was in electrical engineering, where I worked on neural control for autonomous vehicles.</p>
-      <p>My research focuses on <strong>logistics and fleet decisions at scale</strong>. I turn messy, real-world planning questions into <strong>optimization models</strong> that decide where to place charging infrastructure, how large a fleet to buy, and how to stage a multi-year transition within a fixed budget. I build and test these models on <strong>real agency data</strong>, not synthetic instances, so the answers hold up under real operating constraints. On the freight side, I work on a MnDOT <strong>truck project</strong> that turns large <strong>truck flow and highway corridor datasets</strong> into clear statewide pictures of how freight moves, so agencies can plan with it.</p>
-      <p>The part I care most about is what happens after the model works. Two of my projects shipped as <strong>open source tools that Minnesota public agencies use directly</strong>, and the underlying study became a state technical report and a public webinar. I am looking for research and applied data science roles where <strong>modeling, data engineering, and shipping the result</strong> are the same job.</p>
+      <p>My research focuses on <strong>logistics and fleet decisions at scale</strong>. I turn messy, real-world planning questions into <strong>optimization models</strong> that decide where to place charging infrastructure, how large a fleet to buy, and how to stage a multi-year transition within a fixed budget. I build and test these models on <strong>real agency data</strong>, not synthetic instances, so the answers hold up under real operating constraints. On the freight side, I built a <strong>statewide network model</strong> for a MnDOT study of <strong>truck weight limits</strong>. It fuses tonnage, weigh-in-motion, and mobile location data into truck demand by vehicle class, weight, and commodity, then shows which routes gain or lose traffic and how <strong>permit revenue</strong> changes if the limit rises from 80,000 to 100,000 lb.</p>
+      <p>The part I care most about is what happens after the model works. Two of my projects produced <strong>open source tools that Minnesota public agencies can use</strong>, and agencies are now working to put them into practice. The underlying study also became a state technical report and a public webinar. I am looking for research and applied data science roles where <strong>modeling, data engineering, and shipping the result</strong> are the same job.</p>
     </section>
   </div>
 </div>
@@ -406,6 +489,14 @@
       <h2>News</h2>
       <ul class="news">
         <!-- Newest first. Copy a row to add one. -->
+        <li>
+          <span class="date">2026</span>
+          <span class="what">Paper accepted for presentation at the <strong>TRB 106th Annual Meeting</strong> (January 2027), <em>Evaluating Incremental Truck Weight Limit Policy at the Statewide Network Scale: A Minnesota Case Study</em>.</span>
+        </li>
+        <li>
+          <span class="date">2026</span>
+          <span class="what">Paper published in <strong>Transport Policy</strong>, <em>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</em>.</span>
+        </li>
         <li>
           <span class="date">2026</span>
           <span class="what">Awarded the <strong>Doctoral Dissertation Fellowship</strong> at the University of Minnesota for 2026 to 2027.</span>
@@ -470,7 +561,7 @@
         </div>
         <div class="interest">
           <h3>Research to production</h3>
-          <p>Turning models into documented open source tools that agency staff run without a modeler present.</p>
+          <p>Turning models into documented open source tools that agency staff can run without a modeler present.</p>
         </div>
       </div>
     </section>
@@ -488,7 +579,7 @@
           <div>
             <h3>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</h3>
             <p class="authors"><span class="me">Tork, N.</span>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
-            <p class="venue">Transport Policy</p>
+            <p class="venue">Transport Policy, 2026</p>
             <div class="actions">
               <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=s7oPp-sAAAAJ&amp;citation_for_view=s7oPp-sAAAAJ:Y0pCki6q_DkC">Paper</a>
               <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Preprint</a>
@@ -543,6 +634,16 @@
 
       <p class="subhead">Refereed conference proceedings</p>
       <ol class="pubs">
+        <li class="pub">
+          <div>
+            <h3>Evaluating Incremental Truck Weight Limit Policy at the Statewide Network Scale: A Minnesota Case Study</h3>
+            <p class="authors"><span class="me">Tork, N.</span>, Khani, A., Baek, K., &amp; Marasteanu, M.</p>
+            <p class="venue">Transportation Research Board 106th Annual Meeting, Washington, DC, January 2027 (TRBAM-27-03211)</p>
+            <div class="actions">
+              <span class="status">Accepted for presentation</span>
+            </div>
+          </div>
+        </li>
         <li class="pub">
           <div>
             <h3>Planning Charging Infrastructure Network and Fleet Size for Mixed Fleets in Staged Electrification with Budget Constraints</h3>
@@ -819,12 +920,12 @@
           </div>
           <p class="meta">Principal Investigator: Dr. Alireza Khani</p>
           <ul>
-            <li>Led the modeling and data work on two <strong>MnDOT funded projects</strong>, one on <strong>public fleet electrification</strong> (with the Local Road Research Board) and one on <strong>statewide truck freight flows</strong>, taking each from raw agency data to models, tools, and findings that agency staff can act on.</li>
-            <li>Built <strong>optimization models</strong> for charger placement, fleet sizing, and multi-year electrification under budget limits, solved on real fleet and network data. The work produced a <strong>public decision tool</strong>, a <strong>state technical report</strong>, and a public webinar for agency audiences.</li>
-            <li>Assembled, cleaned, and validated <strong>large transit, freight, and highway corridor datasets</strong>, including truck flow data, and built network analysis and corridor visualizations that make statewide freight patterns easy to read.</li>
-            <li>Designed <strong>incentive-compatible mechanisms</strong> that combine bike rebalancing with local store deliveries, and evaluated <strong>last-mile strategies</strong> that pair transit with crowdsourced bikes, bridging passenger and freight logistics.</li>
-            <li>Released and documented <strong>open source Python tools</strong> that Minnesota public agencies use directly, so results keep working after the project ends.</li>
-            <li>Helped <strong>write research proposals</strong> by shaping the technical approach, data plan, and methodology. Published and presented at <strong>TRB, INFORMS, IEEE ITSC, and CASPT</strong>.</li>
+            <li><strong>Project lead on two MnDOT funded studies</strong>, public fleet electrification and truck weight limit policy. Owned the work end to end, from raw agency data to models, tools, and reports.</li>
+            <li><strong>Optimization.</strong> Formulated and solved multi-stage models for charger placement and fleet sizing under budget limits, on real fleet and network data.</li>
+            <li><strong>Data engineering and network modeling.</strong> Fused tonnage, weigh-in-motion, and location data into statewide truck demand, then ran freight assignment across eight policy scenarios to measure route shifts, vehicle miles traveled, and permit revenue.</li>
+            <li><strong>Mechanism design.</strong> Designed incentive-compatible schemes that combine bike rebalancing with last-mile store deliveries.</li>
+            <li><strong>Open source delivery.</strong> Released two documented Python tools that Minnesota agencies can use and are now implementing, backed by a state technical report and a public webinar.</li>
+            <li><strong>Writing and communication.</strong> Contributed to research proposals, and published and presented at TRB, INFORMS, IEEE ITSC, and CASPT.</li>
           </ul>
         </div>
 
@@ -943,7 +1044,7 @@
 
 <footer>
   <div class="foot-inner">
-    <span>Nastaran Tork, Minneapolis, MN. Updated October 2026</span>
+    <span>Last stop. Thanks for riding along. Updated October 2026.</span>
     <span class="foot-links">
       <a href="mailto:tork0100@umn.edu">Email</a>
       <a href="https://github.com/NastaranTork">GitHub</a>
@@ -953,6 +1054,26 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var r=document.querySelector('.rider'), wraps=document.querySelectorAll('.band > .wrap'), hero=document.querySelector('.hero');
+  if(!r||!wraps.length||!hero)return;
+  var tick=false;
+  function place(){
+    tick=false;
+    var small=window.matchMedia('(max-width: 760px)').matches;
+    var first=wraps[0].getBoundingClientRect(), last=wraps[wraps.length-1].getBoundingClientRect();
+    var top=hero.getBoundingClientRect().top+46, bottom=last.bottom-64;
+    var y=Math.max(top,Math.min(window.innerHeight*0.42,bottom));
+    r.style.left=(first.left+(small?21:29))+'px';
+    r.style.top=y+'px';
+  }
+  function ask(){ if(!tick){tick=true;requestAnimationFrame(place);} }
+  window.addEventListener('scroll',ask,{passive:true});
+  window.addEventListener('resize',ask);
+  place();
+})();
+</script>
 <script>
 (function(){
   if(!('IntersectionObserver' in window))return;
