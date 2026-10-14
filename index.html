@@ -3,1101 +3,605 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Nastaran Tork, Ph.D. candidate in transportation engineering at the University of Minnesota. Optimization, machine learning, and open source decision tools for transportation and logistics systems.">
 <meta name="color-scheme" content="dark light">
 <title>Nastaran Tork</title>
+<meta name="description" content="Nastaran Tork, Ph.D. candidate at the University of Minnesota. Optimization and data science for freight, transit and fleets.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --paper:     #F9FAF9;
-    --ink:       #1A2420;
-    --ink-2:     #434F49;
-    --ink-3:     #6A766F;
-    --rule:      #DDE3DF;
-    --rule-2:    #C9D2CC;
-    --accent:    #0E5C46;
-    --accent-2:  #083F30;
-    --accent-w:  #E4EFE9;
-    --on-accent: #FFFFFF;
-    --bar:       rgba(249,250,249,.9);
-    --serif: "Source Serif 4", "Source Serif Pro", Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
-    --sans:  "Bricolage Grotesque", "Public Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --line-2:    #F2A614;
-    --hl:        #FBE3A1;
-    --rail: 190px;
-    --gutter: 34px;
-    --gap: 48px;
-    color-scheme: light;
-  }
+:root{
+  --bg:#07090c; --panel:#0d1116; --line:#1f2630; --text:#e8e6e0; --muted:#98a0ab; --dim:#66707d;
+  --accent:#6cc4ff; --accent-ink:#04121b;
+  --ok:#6fdcae; --soon:#86b8ff; --wait:#c3a8ff;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1120px;
+}
+:root[data-theme="light"]{
+  --bg:#f5f6f8; --panel:#ffffff; --line:#d9dde3; --text:#0e1320; --muted:#505968; --dim:#7a8391;
+  --accent:#0b5ed7; --accent-ink:#ffffff;
+  --ok:#0c7a4a; --soon:#1d5fc7; --wait:#6b3fc2;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:8px 14px;z-index:30}
+.skip:focus{left:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;letter-spacing:-.015em}
+p{margin:0 0 1em}
 
-  @media all {
-    :root:not([data-theme="light"]) {
-      --paper:     #0F1412;
-      --ink:       #E7ECE8;
-      --ink-2:     #AAB6AF;
-      --ink-3:     #7F8C85;
-      --rule:      #25302B;
-      --rule-2:    #33403A;
-      --accent:    #5FC29E;
-      --accent-2:  #86D6B7;
-      --accent-w:  #16241E;
-      --on-accent: #0B1210;
-      --bar:       rgba(15,20,18,.9);
-      --line-2:    #F5B93B;
-      --hl:        rgba(245,185,59,.26);
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper:     #0F1412;
-    --ink:       #E7ECE8;
-    --ink-2:     #AAB6AF;
-    --ink-3:     #7F8C85;
-    --rule:      #25302B;
-    --rule-2:    #33403A;
-    --accent:    #5FC29E;
-    --accent-2:  #86D6B7;
-    --accent-w:  #16241E;
-    --on-accent: #0B1210;
-    --bar:       rgba(15,20,18,.9);
-    --line-2:    #F5B93B;
-    --hl:      rgba(245,185,59,.26);
-    color-scheme: dark;
-  }
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:20px}
+.mark{font-family:var(--serif);font-weight:600;font-size:21px;text-decoration:none;letter-spacing:-.01em}
+.bar nav{display:flex;align-items:center;gap:24px;font-size:15px}
+.bar nav a{text-decoration:none;color:var(--muted)}
+.bar nav a:hover{color:var(--text)}
+.bar nav a.cv{color:var(--accent-ink);background:var(--accent);padding:6px 16px;border-radius:99px;font-weight:500}
+.bar nav a.cv:hover{color:var(--accent-ink);filter:brightness(1.08)}
+.themer{display:inline-flex;align-items:center;justify-content:center;padding:0;background:none;border:1px solid var(--line);color:var(--muted);width:34px;height:34px;border-radius:50%;cursor:pointer}
+.themer:hover{color:var(--text);border-color:var(--muted)}
 
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-  }
+/* hero */
+.hero{position:relative;padding:84px 0 60px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(color-mix(in srgb,var(--text) 14%,transparent) 1px,transparent 1.2px);background-size:26px 26px;-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 62%);mask-image:linear-gradient(180deg,#000 0%,transparent 62%);pointer-events:none}
+.hero .wrap{position:relative}
+.who{display:flex;align-items:center;gap:16px;margin-bottom:38px}
+.who img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.who b{display:block;font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.1}
+.who span{color:var(--muted);font-size:15px}
+.hero h1{font-size:clamp(46px,7vw,96px);line-height:1.02;letter-spacing:-.025em;max-width:13em;font-weight:500}
+.lede{max-width:38em;font-size:clamp(18px,1.7vw,21px);line-height:1.6;margin:30px 0 0;color:var(--text)}
+.lede em{color:var(--muted);font-style:normal}
 
-  body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font-family: var(--serif); font-size: 1.0625rem; line-height: 1.64;
-    font-optical-sizing: auto;
-    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-  }
-  img { max-width: 100%; }
-  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); }
-  a:hover { color: var(--accent-2); text-decoration-color: currentColor; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+/* news panel */
+.board{margin-top:50px;border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden}
+.board caption{caption-side:top;text-align:left;font-family:var(--sans);font-weight:600;font-size:15px;padding:15px 22px;border-bottom:1px solid var(--line);color:var(--text)}
+.board table{width:100%;border-collapse:collapse}
+.board th{display:none}
+.board td{padding:14px 22px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15.5px;line-height:1.5}
+.board tr:last-child td{border-bottom:0}
+.board td.when{font-family:var(--mono);font-size:13.5px;color:var(--muted);white-space:nowrap;width:130px;padding-top:16px}
+.board td.what strong{font-weight:500;color:var(--text)}
+.board td.what{color:var(--muted)}
+.board td.stat{font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap;width:150px;padding-top:16px}
+.board td.stat::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:9px;vertical-align:1px}
+.s-ok{color:var(--ok)} .s-soon{color:var(--soon)} .s-wait{color:var(--wait)}
+.board details{border-top:1px solid var(--line)}
+.board details table{border-top:0}
+.board summary{cursor:pointer;padding:13px 22px;color:var(--muted);font-size:14.5px;list-style:none}
+.board summary::-webkit-details-marker{display:none}
+.board summary:hover{color:var(--text)}
+.board details[open] summary{border-bottom:1px solid var(--line)}
+.contact-row{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:28px;font-size:15px}
+.contact-row a{color:var(--muted)}
+.contact-row a:hover{color:var(--accent)}
 
-  /* ---------- top bar ---------- */
+/* sections */
+section{padding:92px 0 12px;border-top:1px solid var(--line)}
+.head{display:flex;align-items:baseline;gap:24px;margin-bottom:38px;flex-wrap:wrap}
+.head h2{font-size:clamp(32px,3.6vw,46px);line-height:1.1}
+.head p{color:var(--muted);margin:0;max-width:32em;font-size:16px}
 
-  .topbar {
-    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
-    background: var(--bar); backdrop-filter: saturate(160%) blur(10px);
-    border-bottom: 1px solid var(--rule);
-    font-family: var(--sans);
-  }
-  .topbar-inner {
-    max-width: 1040px; margin: 0 auto; padding: 0 24px;
-    display: flex; align-items: center; gap: 18px; min-height: 56px;
-  }
-  .mark {
-    font-family: var(--serif); font-weight: 600; font-size: 1.08rem;
-    letter-spacing: -.005em; text-decoration: none; color: var(--ink); white-space: nowrap;
-  }
-  .topnav { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
-  .topnav::-webkit-scrollbar { display: none; }
-  .topnav a {
-    font-size: .84rem; font-weight: 500; color: var(--ink-2); text-decoration: none;
-    padding: 6px 10px; border-radius: 4px; white-space: nowrap;
-    transition: color .15s ease, background-color .15s ease;
-  }
-  .topnav a:hover { color: var(--accent); background: var(--accent-w); }
-  .topnav a.cv { color: var(--accent); font-weight: 600; }
+/* work rows */
+.row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:52px;padding:44px 0;border-bottom:1px solid var(--line);align-items:start}
+.row:last-of-type{border-bottom:0}
+.row h3{font-size:clamp(28px,3vw,38px);line-height:1.12;margin-bottom:24px}
+.row svg{display:block;width:100%;height:auto;max-width:460px}
+.row p{font-size:17.5px}
+.out{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px;font-size:15.5px}
+.out li{padding-left:20px;position:relative;color:var(--muted)}
+.out li::before{content:"";position:absolute;left:0;top:.8em;width:10px;height:1px;background:var(--accent)}
+.out a{color:var(--text)}
+.methods{margin:26px 0 0;padding:22px 26px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:16.5px;color:var(--muted)}
+.methods b{color:var(--text);font-weight:600}
+.dia-line{stroke:var(--accent);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.dia-dim{stroke:var(--line);fill:none;stroke-width:3;stroke-linecap:round}
+.dia-dot{fill:var(--bg);stroke:var(--accent);stroke-width:3}
+.dia-pk{fill:var(--accent)}
+.dia-txt{fill:var(--muted);font-family:var(--mono);font-size:12px}
 
-  .themer {
-    flex: none; border: 1px solid var(--rule-2); background: transparent;
-    color: var(--ink-2); border-radius: 4px; cursor: pointer;
-    width: 32px; height: 30px; font-size: 1.05rem; line-height: 1;
-    display: grid; place-items: center; padding: 0;
-    transition: color .15s ease, border-color .15s ease;
-  }
-  .themer:hover { color: var(--accent); border-color: var(--accent); }
+/* papers */
+.papers{list-style:none;margin:0;padding:0}
+.papers > li{display:grid;grid-template-columns:84px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--line)}
+.yr{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.1;color:var(--dim)}
+.papers h3{font-family:var(--serif);font-weight:600;font-size:20px;line-height:1.35;letter-spacing:-.005em;margin-bottom:6px}
+.auth{font-size:15px;color:var(--muted);margin:0 0 2px}
+.auth b{color:var(--text);font-weight:600}
+.ven{font-size:15px;margin:0 0 9px;font-style:italic;color:var(--muted);font-family:var(--serif)}
+.tags{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14.5px;align-items:center}
+.tags .kind{color:var(--dim);font-family:var(--mono);font-size:12.5px}
+.chip{font-family:var(--mono);font-weight:500;font-size:12.5px}
+.chip::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:8px;vertical-align:1px}
+details.more{margin-top:28px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+details.more summary{cursor:pointer;padding:15px 22px;font-size:16px;list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";float:right;color:var(--accent);font-weight:600}
+details.more[open] summary::after{content:"2"}
+.talks{list-style:none;margin:0;padding:0 22px 8px}
+.talks li{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:12px 0;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+.talks li > span:first-child{font-family:var(--mono);font-size:12.5px;color:var(--dim);padding-top:3px}
+.talks em{color:var(--text);font-family:var(--serif);font-size:16px}
 
-  /* ---------- page frame and the route line ---------- */
+/* tools */
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.tool{padding:4px 0 4px 24px;border-left:2px solid var(--accent)}
+.tool h3{font-size:28px;margin-bottom:12px}
+.tool p{font-size:16.5px;color:var(--muted)}
+.tool .lnk{font-size:15px}
+.note{color:var(--muted);max-width:44em;margin-bottom:34px;font-size:16px}
 
-  .band > .wrap {
-    position: relative; max-width: 1040px; margin: 0 auto;
-    padding: 56px 24px 8px;
-  }
-  /* the line that runs down the left edge, one segment per band so they join */
-  .band > .wrap::before {
-    content: ""; position: absolute; top: 0; bottom: 0; left: 28px; width: 2px;
-    background: var(--rule-2);
-  }
-  .band:last-of-type > .wrap { padding-bottom: 56px; }
+/* experience */
+.job{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:32px 0;border-bottom:1px solid var(--line)}
+.job:last-child{border-bottom:0}
+.when2{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:6px}
+.job h3{font-size:25px;line-height:1.25;margin-bottom:4px}
+.job .org{color:var(--muted);font-size:15.5px;margin-bottom:14px}
+.job p{font-size:16.5px}
+.job ul{margin:0;padding-left:20px;display:grid;gap:9px;font-size:16.5px}
+.job li::marker{color:var(--accent)}
+.job li b{font-weight:600}
 
-  section { scroll-margin-top: 76px; }
-  .band > .wrap > section {
-    display: grid; grid-template-columns: var(--rail) minmax(0, 1fr);
-    column-gap: var(--gap); margin-left: var(--gutter); padding-bottom: 48px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .band:last-of-type > .wrap > section { border-bottom: 0; padding-bottom: 0; }
-  .band > .wrap > section > * { grid-column: 2; }
+/* background */
+.bg3{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+.bg3 h3{font-size:26px;margin-bottom:18px}
+.bg3 ul{list-style:none;margin:0;padding:0;display:grid;gap:16px;font-size:16px}
+.bg3 li small{display:block;color:var(--muted);font-size:14.5px;line-height:1.5}
+.bg3 li b{font-weight:600}
+.skills{display:grid;gap:14px;margin:0;font-size:16px}
+.skills div{display:grid;grid-template-columns:170px 1fr;gap:18px}
+.skills dt{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:3px}
+.skills dd{margin:0}
+.aw{list-style:none;margin:0;padding:0}
+.aw li{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:13px 0;border-top:1px solid var(--line);font-size:16px}
+.aw li:first-child{border-top:0}
+.aw .d{font-family:var(--mono);font-size:13px;color:var(--dim);padding-top:3px}
+.aw b{font-weight:600}
+.aw small{display:block;color:var(--muted);font-size:14.5px;line-height:1.5}
+.sub{margin-top:68px}
 
-  .band > .wrap > section > h2 {
-    grid-column: 1; grid-row: 1 / span 60;
-    position: sticky; top: 84px; align-self: start;
-    margin: 0; font-family: var(--sans); font-weight: 600; font-size: 1rem;
-    line-height: 1.3; color: var(--ink); letter-spacing: 0; text-wrap: balance;
-  }
-  /* the stop on the line */
-  .band > .wrap > section > h2::before {
-    content: ""; position: absolute; left: calc(var(--gutter) * -1); top: .24em;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--paper); border: 2px solid var(--accent);
-    transition: background-color .25s ease, transform .25s ease;
-  }
-  .band > .wrap > section.here > h2::before { background: var(--accent); transform: scale(1.18); }
+/* closing */
+.close{padding:110px 0 84px;border-top:1px solid var(--line);margin-top:84px}
+.close h2{font-size:clamp(36px,5.4vw,70px);line-height:1.06;letter-spacing:-.025em;max-width:15em;font-weight:500}
+.close p{margin-top:24px;color:var(--muted);max-width:34em;font-size:17px}
+.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{display:inline-block;text-decoration:none;font-weight:500;padding:12px 24px;border-radius:99px;border:1px solid var(--line);font-size:16px}
+.btn.main{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.main:hover{color:var(--accent-ink);filter:brightness(1.08)}
+.btn:hover{border-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);font-size:14px}
 
-  p { max-width: 66ch; margin: 0 0 1em; }
-  section p:last-child { margin-bottom: 0; }
+@media (max-width:860px){
+  .bar nav a:not(.cv){display:none}
+  .row{grid-template-columns:1fr;gap:26px}
+  .tools,.bg3{grid-template-columns:1fr;gap:34px}
+  .job{grid-template-columns:1fr;gap:6px}
+  .skills div{grid-template-columns:1fr;gap:2px}
+  .head{flex-direction:column;gap:10px}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .wrap{padding:0 20px}
+  .hero{padding-top:48px}
+  .board td{display:block;padding:0 18px;border:0;width:auto !important}
+  .board td.when{padding-top:15px}
+  .board td.what{padding-top:4px}
+  .board td.stat{padding:8px 18px 15px;border-bottom:1px solid var(--line)}
+  .board tr:last-child td.stat{border-bottom:0}
+  .papers > li,.talks li{grid-template-columns:1fr;gap:6px}
+  .aw li{grid-template-columns:1fr;gap:2px}
+}
 
-  /* ---------- hero ---------- */
-
-  .band--hero > .wrap { padding-top: 64px; padding-bottom: 56px; }
-  .hero { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); column-gap: var(--gap); margin-left: var(--gutter); align-items: start; position: relative; }
-  .hero::before {
-    content: ""; position: absolute; left: calc(var(--gutter) * -1 - 2px); top: 1.05em;
-    width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
-    box-shadow: 0 0 0 4px var(--paper);
-  }
-  .portrait { width: 100%; }
-  .portrait img { display: block; width: 100%; max-width: 190px; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 6px; }
-  .hero-body { min-width: 0; }
-  .eyebrow { margin: 0 0 6px; font-family: var(--sans); font-size: .9rem; color: var(--ink-3); }
-  .name {
-    font-weight: 600; font-size: clamp(2.5rem, 6vw, 3.6rem); line-height: 1.04;
-    letter-spacing: -.02em; margin: 0; text-wrap: balance;
-  }
-  .title { margin: 14px 0 0; max-width: none; font-family: var(--sans); font-size: .98rem; line-height: 1.55; color: var(--ink-2); }
-  .title strong { font-weight: 600; color: var(--ink); }
-  .pitch { margin: 22px 0 28px; font-size: 1.28rem; line-height: 1.5; max-width: 34em; color: var(--ink); }
-
-  .links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin: 0; padding: 0; list-style: none; font-family: var(--sans); font-size: .9rem; }
-  .links a { color: var(--ink-2); font-weight: 500; text-decoration-color: var(--rule-2); }
-  .links a:hover { color: var(--accent); text-decoration-color: currentColor; }
-  .links a.primary {
-    display: inline-block; text-decoration: none; font-weight: 600;
-    background: var(--accent); color: var(--on-accent);
-    border-radius: 4px; padding: 8px 16px; transition: background-color .15s ease;
-  }
-  .links a.primary:hover { background: var(--accent-2); color: var(--on-accent); }
-
-  /* ---------- dated lists ---------- */
-
-  .news, .talks, .awards { list-style: none; margin: 0; padding: 0; }
-  .news li, .talks li, .awards li {
-    display: grid; grid-template-columns: 84px minmax(0, 1fr); column-gap: 20px;
-    padding: 0 0 14px;
-  }
-  .news li:last-child, .talks li:last-child, .awards li:last-child { padding-bottom: 0; }
-  .date, .when {
-    font-family: var(--sans); font-size: .84rem; color: var(--ink-3);
-    font-variant-numeric: tabular-nums lining-nums; padding-top: .22em;
-  }
-  .what strong, .talks em { font-weight: 600; font-style: normal; color: var(--ink); }
-  .awards .what { font-weight: 600; }
-  .awards .what span { display: block; font-weight: 400; color: var(--ink-2); font-size: .98rem; margin-top: 1px; }
-
-  /* ---------- research ---------- */
-
-  .interests { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 36px; }
-  .interest h3 { margin: 0 0 3px; font-size: 1.04rem; font-weight: 600; line-height: 1.35; }
-  .interest p { margin: 0; font-size: .98rem; color: var(--ink-2); max-width: none; line-height: 1.55; }
-
-  /* ---------- publications ---------- */
-
-  .subhead {
-    font-family: var(--sans); font-weight: 600; font-size: .86rem; color: var(--ink-3);
-    margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); max-width: none;
-  }
-  section > .subhead:first-of-type { margin-top: 0; }
-  .pubs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-  .pub h3 { margin: 0; font-size: 1.06rem; font-weight: 600; line-height: 1.38; text-wrap: pretty; }
-  .pub .authors { margin: 4px 0 0; font-size: .97rem; color: var(--ink-2); max-width: none; line-height: 1.5; }
-  .pub .authors .me { color: var(--ink); font-weight: 600; }
-  .pub .venue { margin: 1px 0 0; font-size: .97rem; color: var(--ink-2); font-style: italic; max-width: none; line-height: 1.5; }
-  .pub .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin-top: 7px; font-family: var(--sans); font-size: .82rem; }
-  .pub .actions a { font-weight: 500; }
-  .pub .actions .status {
-    text-decoration: none; font-weight: 500; color: var(--ink-2);
-    border: 1px solid var(--rule-2); border-radius: 3px; padding: 1px 8px;
-  }
-  .pub .actions a.status { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
-  .pub .actions a.status:hover { background: var(--accent-w); }
-
-  /* ---------- software ---------- */
-
-  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  .project { border: 1px solid var(--rule-2); border-radius: 6px; padding: 18px 20px 18px; display: flex; flex-direction: column; gap: 8px; }
-  .project h3 { margin: 0; font-size: 1.06rem; font-weight: 600; line-height: 1.35; }
-  .project p { margin: 0; font-size: .97rem; color: var(--ink-2); max-width: none; line-height: 1.55; }
-  .stack { display: flex; flex-wrap: wrap; font-family: var(--sans); font-size: .8rem; color: var(--ink-3); }
-  .stack span:not(:last-child)::after { content: ", "; white-space: pre; }
-  .project .link { font-family: var(--sans); font-size: .86rem; font-weight: 500; margin-top: auto; padding-top: 6px; }
-
-  /* ---------- skills ---------- */
-
-  .skills { display: flex; flex-direction: column; gap: 14px; margin: 0; }
-  .skillrow { display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 20px; align-items: baseline; }
-  .skillrow dt { font-family: var(--sans); font-size: .86rem; font-weight: 600; color: var(--ink); }
-  .skillrow dd { margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.55; }
-  .skillrow dd span:not(:last-child)::after { content: ", "; white-space: pre; }
-
-  /* ---------- experience, education, teaching ---------- */
-
-  .entries { display: flex; flex-direction: column; gap: 26px; }
-  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 18px; flex-wrap: wrap; }
-  .entry-title { font-size: 1.06rem; font-weight: 600; margin: 0; line-height: 1.42; }
-  .entry-title .where { font-weight: 400; color: var(--ink-2); }
-  .entry-title .where::before { content: ", "; }
-  .when { white-space: nowrap; padding-top: 0; }
-  .entry p { margin: 5px 0 0; color: var(--ink-2); font-size: .99rem; max-width: 64ch; }
-  .entry .meta { font-family: var(--sans); font-size: .84rem; color: var(--ink-3); margin-top: 4px; }
-  .entry ul { margin: 8px 0 0; padding-left: 1.15em; color: var(--ink-2); font-size: .99rem; max-width: 64ch; }
-  .entry li { margin-bottom: 5px; padding-left: .1em; }
-  .entry li::marker { color: var(--ink-3); }
-  .course { font-size: .94rem; color: var(--ink-3); margin-top: 6px; }
-  .course b { font-family: var(--sans); font-size: .82rem; font-weight: 600; color: var(--ink-2); margin-right: .35em; }
-
-  .plainlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-  .plainlist li { font-size: .99rem; color: var(--ink-2); padding-left: 1.1em; position: relative; }
-  .plainlist li::before { content: ""; position: absolute; left: 0; top: .72em; width: 5px; height: 5px; border-radius: 50%; background: var(--ink-3); }
-  .plainlist b { color: var(--ink); font-weight: 600; }
-
-  /* ---------- writing (hidden until the first post exists) ---------- */
-
-  .posts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .post { border-bottom: 1px solid var(--rule); }
-  .post:first-child { border-top: 1px solid var(--rule); }
-  .post > summary {
-    cursor: pointer; padding: 14px 0; list-style: none;
-    display: grid; grid-template-columns: 84px minmax(0, 1fr) 18px; gap: 20px; align-items: baseline;
-  }
-  .post > summary::-webkit-details-marker { display: none; }
-  .post > summary:hover .ttl { color: var(--accent); }
-  .post .ttl { font-size: 1.06rem; font-weight: 600; }
-  .post .sub { display: block; font-weight: 400; color: var(--ink-2); font-size: .97rem; margin-top: 3px; }
-  .post .chev { font-family: var(--sans); font-size: .8rem; color: var(--ink-3); justify-self: end; }
-  .post[open] .chev { color: var(--accent); }
-  .post .body { padding: 2px 0 20px 104px; }
-  .post .body p { font-size: 1rem; color: var(--ink-2); margin: 0 0 12px; max-width: 64ch; }
-  .post .body h4 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 18px 0 6px; }
-  .post .body ul { font-size: 1rem; color: var(--ink-2); padding-left: 1.15em; margin: 0 0 12px; max-width: 64ch; }
-  .post .body li { margin-bottom: 5px; }
-
-  /* ---------- footer ---------- */
-
-  footer { border-top: 1px solid var(--rule); font-family: var(--sans); }
-  .foot-inner {
-    max-width: 1040px; margin: 0 auto;
-    padding: 28px 24px calc(28px + env(safe-area-inset-bottom, 0px));
-    display: flex; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap;
-    font-size: .84rem; color: var(--ink-3);
-  }
-  .foot-inner a { color: var(--ink-2); text-decoration: none; font-weight: 500; }
-  .foot-inner a:hover { color: var(--accent); text-decoration: underline; }
-  .foot-links { display: flex; gap: 8px 18px; flex-wrap: wrap; }
-
-  /* ---------- the transit line layer ---------- */
-
-  .band > .wrap::before { left: 27px; width: 4px; border-radius: 0; background: var(--accent); }
-  .band--hero > .wrap::before { top: 82px; border-radius: 2px 2px 0 0; }
-  .band:last-of-type > .wrap::before { bottom: 40px; }
-  .band:last-of-type > .wrap::after {
-    content: ""; position: absolute; left: 19px; bottom: 24px; width: 20px; height: 20px; border-radius: 50%;
-    background: var(--paper); border: 4px solid var(--accent);
-  }
-  .band > .wrap > section > h2::before {
-    left: calc(var(--gutter) * -1 - 2px); top: .2em; width: 14px; height: 14px;
-    border: 3px solid var(--ink); background: var(--paper);
-  }
-  .band > .wrap > section.here > h2::before { background: var(--line-2); transform: scale(1.2); }
-  .hero::before {
-    left: calc(var(--gutter) * -1 - 5px); top: .9em; width: 20px; height: 20px;
-    background: var(--paper); border: 4px solid var(--accent); box-shadow: none;
-  }
-  .rider {
-    position: fixed; z-index: 5; left: -40px; top: 0; width: 14px; height: 24px; margin: -12px 0 0 -7px;
-    border-radius: 5px; background: var(--line-2); border: 2px solid var(--ink);
-    box-shadow: 0 0 0 3px var(--paper); pointer-events: none;
-  }
-  .rider::before { content: ""; position: absolute; left: 2px; right: 2px; top: 3px; height: 5px; border-radius: 1px; background: var(--ink); opacity: .85; }
-
-  .name { font-family: var(--sans); font-weight: 700; letter-spacing: -.035em; font-size: clamp(2.6rem, 6.4vw, 4rem); line-height: 1; }
-  .mark { font-family: var(--sans); font-weight: 700; letter-spacing: -.02em; }
-  .interest h3, .project h3 { font-family: var(--sans); font-weight: 600; letter-spacing: -.01em; }
-
-  .portrait img { max-width: 168px; margin: 7px; border-radius: 50%; box-shadow: 0 0 0 4px var(--paper), 0 0 0 7px var(--accent); }
-
-  .hero-body { position: relative; }
-  .minimap { position: absolute; right: 0; top: 2px; width: 250px; height: auto; overflow: visible; }
-  .minimap path { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s ease-out forwards; }
-  .minimap .l1 { stroke: var(--accent); }
-  .minimap .l2 { stroke: var(--line-2); animation-delay: .25s; }
-  .minimap .l3 { stroke: var(--rule-2); animation-delay: .5s; }
-  .minimap circle { fill: var(--paper); stroke: var(--ink); stroke-width: 2.5; opacity: 0; animation: pop .3s ease-out 1.2s forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
-  @keyframes pop { to { opacity: 1; } }
-
-  #about strong { font-weight: 600; color: var(--ink); }
-
-  .topnav a { position: relative; }
-  .topnav a:hover { background: transparent; color: var(--ink); }
-  .topnav a::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 3px; border-radius: 2px; background: var(--line-2); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
-  .topnav a:hover::after { transform: scaleX(1); }
-
-  .links a.primary { border-radius: 999px; padding: 9px 20px; transition: background-color .15s ease, transform .15s ease; }
-  .links a.primary:hover { transform: translateY(-2px); }
-
-  .interest h3 { display: flex; align-items: baseline; gap: 10px; }
-  .interest h3::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); transform: translateY(-1px); }
-  .interest:nth-child(even) h3::before { background: var(--line-2); }
-  .interest p { padding-left: 20px; }
-
-  .project { border-top: 5px solid var(--accent); transition: transform .18s ease, border-color .18s ease; }
-  .project:nth-child(even) { border-top-color: var(--line-2); }
-  .project:hover { transform: translateY(-3px); }
-
-  .entry li strong { color: var(--ink); font-weight: 600; }
-
-  /* ---------- narrower screens ---------- */
-
-  @media (max-width: 900px) {
-    :root { --rail: 150px; --gap: 32px; }
-    .minimap { display: none; }
-    .portrait img { max-width: 136px; }
-    .interests, .projects { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 760px) {
-    :root { --gutter: 28px; }
-    .band > .wrap { padding: 40px 16px 4px; }
-    .band > .wrap::before { left: 19px; }
-    .band--hero > .wrap::before { top: 56px; }
-    .band:last-of-type > .wrap::after { left: 11px; }
-    .band:last-of-type > .wrap { padding-bottom: 40px; }
-    .topbar-inner, .foot-inner { padding-inline: 16px; }
-    .mark { display: none; }
-    .topnav { margin-left: 0; }
-
-    .band > .wrap > section { display: block; padding-bottom: 36px; }
-    .band > .wrap > section > h2 { position: relative; top: auto; margin: 0 0 16px; }
-    .band--hero > .wrap { padding-top: 44px; padding-bottom: 40px; }
-    .hero { display: block; }
-    .hero::before { top: .1em; }
-    .portrait { margin-bottom: 20px; }
-    .portrait img { max-width: 116px; }
-    .pitch { font-size: 1.15rem; }
-    .news li, .talks li, .awards li { grid-template-columns: 1fr; row-gap: 1px; }
-    .skillrow { grid-template-columns: 1fr; row-gap: 2px; }
-    .post > summary { grid-template-columns: minmax(0, 1fr) 18px; gap: 4px 12px; }
-    .post .date { grid-column: 1 / -1; }
-    .post .body { padding-left: 0; }
-  }
-
-  @media print {
-    .topbar, .themer, .rider, .minimap, .band > .wrap::before, .band > .wrap > section > h2::before, .hero::before { display: none; }
-    body { font-size: 10.5pt; color: #000; background: #fff; }
-    .band > .wrap > section > h2 { position: static; }
-    .project, .pub, .entry, .awards li { break-inside: avoid; }
-  }
-
+.hero h1{font-size:clamp(52px,8.4vw,112px);line-height:1;letter-spacing:-.03em;max-width:none}
+.statement{font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);line-height:1.22;letter-spacing:-.015em;max-width:24em;margin:26px 0 0;color:var(--text)}
+.lede{max-width:40em;font-size:clamp(17px,1.5vw,19px);line-height:1.65;margin:24px 0 0;color:var(--muted)}
+.does{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:52px}
+.does > div{border-top:1px solid var(--line);padding-top:18px}
+.does h3{font-size:23px;margin-bottom:8px}
+.does p{font-size:15.5px;color:var(--muted);margin:0}
+.who span{line-height:1.5}
+@media (max-width:860px){.does{grid-template-columns:1fr;gap:26px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to content</a>
 
-
-<div class="topbar">
-  <div class="topbar-inner">
-    <a class="mark" href="#top">Nastaran Tork</a>
-    <nav class="topnav" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#news">News</a>
-      <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a href="#software">Software</a>
-      <!-- nav-writing: uncomment the next line when the Writing section goes live -->
-      <!-- <a href="#writing">Writing</a> -->
-      <a href="#skills">Skills</a>
-      <a href="#awards">Awards</a>
+<div class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">N. Tork</a>
+    <nav aria-label="Sections">
+      <a href="#work">Projects</a>
+      <a href="#papers">Papers</a>
+      <a href="#tools">Tools</a>
       <a href="#experience">Experience</a>
+      <a href="#background">Background</a>
       <a class="cv" href="cv.pdf">CV</a>
+      <button class="themer" id="themeToggle" type="button" aria-label="Switch color theme"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button>
     </nav>
-    <button class="themer" id="themeToggle" type="button" aria-label="Switch color theme">◐</button>
   </div>
 </div>
 
-<div class="rider" aria-hidden="true"></div>
-
-<div class="band band--hero" id="top">
+<main id="top">
+<header class="hero">
   <div class="wrap">
-    <header class="hero">
-      <div class="portrait">
-        <!-- photo.jpg must sit in the repo next to index.html. -->
-        <img src="photo.jpg" alt="Nastaran Tork" width="600" height="600">
+    <div class="who">
+      <img src="photo.jpg" alt="Nastaran Tork" width="64" height="64">
+      <span>Ph.D. candidate, Civil Engineering (Transportation), University of Minnesota<br>M.S., Data Science in Operations Research</span>
+    </div>
+
+    <h1>Nastaran Tork</h1>
+    <p class="statement">I lead research projects from the first question to the final deliverable, and I advise the people who act on the results.</p>
+    <p class="lede">My training is in optimization and data science, and my experience is in transportation and logistics systems. I work with real agency data, write the reports and tools decision makers use, and present to technical and non technical audiences.</p>
+
+    <div class="does">
+      <div>
+        <h3>Lead projects</h3>
+        <p>Project lead on two MnDOT funded studies, owning the work from raw data to final report, and contributing to the proposals that funded them.</p>
       </div>
-
-      <div class="hero-body">
-        <svg class="minimap" viewBox="0 0 300 125" aria-hidden="true" focusable="false">
-          <path class="l3" pathLength="1" d="M200 14 V112"/>
-          <path class="l2" pathLength="1" d="M60 12 V70 L100 110 H252"/>
-          <path class="l1" pathLength="1" d="M10 100 H90 L130 60 H290"/>
-          <circle cx="10" cy="100" r="5"/><circle cx="50" cy="100" r="5"/><circle cx="90" cy="100" r="7"/>
-          <circle cx="130" cy="60" r="5"/><circle cx="165" cy="60" r="5"/><circle cx="200" cy="60" r="7"/><circle cx="245" cy="60" r="5"/><circle cx="290" cy="60" r="5"/>
-          <circle cx="60" cy="12" r="5"/><circle cx="60" cy="44" r="5"/><circle cx="150" cy="110" r="5"/><circle cx="200" cy="110" r="7"/><circle cx="252" cy="110" r="5"/>
-          <circle cx="200" cy="14" r="5"/>
-        </svg>
-        <p class="eyebrow">University of Minnesota, Twin Cities</p>
-        <h1 class="name">Nastaran Tork</h1>
-        <p class="title"><strong>Ph.D. Candidate, Civil Engineering (Transportation)</strong><br>M.S., Data Science in Operations Research, Transit Lab</p>
-        <p class="pitch">I build optimization and machine learning models for large transportation and logistics systems, then turn them into open source tools that public agencies can use on their own data.</p>
-
-        <ul class="links">
-          <li><a class="primary" href="cv.pdf">Curriculum vitae</a></li>
-          <li><a href="mailto:tork0100@umn.edu">tork0100@umn.edu</a></li>
-          <li><a href="https://github.com/NastaranTork">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/nastaran-tork-5a67241aa/">LinkedIn</a></li>
-          <!-- Replace USERNAME with your Google Scholar id, or delete this line. -->
-          <li><a href="https://scholar.google.com/citations?user=s7oPp-sAAAAJ">Google Scholar</a></li>
-        </ul>
+      <div>
+        <h3>Advise decision makers</h3>
+        <p>Turn analysis into recommendations for agency staff, through technical reports, a public webinar, and tools that agencies can run themselves.</p>
       </div>
-    </header>
-
-  </div>
-</div>
-
-<div class="band">
-  <div class="wrap">
-    <section id="about">
-      <h2>About</h2>
-      <p>I am a Ph.D. candidate in transportation engineering at the University of Minnesota, working in the Transit Lab with Dr. Alireza Khani, and I hold a master's in <strong>data science and operations research</strong> from Industrial and Systems Engineering. My first degree was in electrical engineering, where I worked on neural control for autonomous vehicles.</p>
-      <p>My research focuses on <strong>optimization and data science for transportation and logistics systems</strong>. I turn real planning questions into <strong>optimization and network models</strong>, build them on <strong>large, messy real-world data</strong>, and use them to support decisions on infrastructure, fleets, and freight.</p>
-      <p>I care most about what happens after the model works. I turn research into <strong>open source tools</strong> and clear reports that decision makers can use. I am looking for roles where <strong>good math meets real operations, at scale</strong>.</p>
-    </section>
-  </div>
-</div>
-
-<div class="band band--tint">
-  <div class="wrap">
-    <section id="news">
-      <h2>News</h2>
-      <ul class="news">
-        <!-- Newest first. Copy a row to add one. -->
-        <li>
-          <span class="date">2026</span>
-          <span class="what">Paper accepted for presentation at the <strong>TRB 106th Annual Meeting</strong> (January 2027), <em>Evaluating Incremental Truck Weight Limit Policy at the Statewide Network Scale: A Minnesota Case Study</em>.</span>
-        </li>
-        <li>
-          <span class="date">2026</span>
-          <span class="what">Paper published in <strong>Transport Policy</strong>, <em>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</em>.</span>
-        </li>
-        <li>
-          <span class="date">2026</span>
-          <span class="what">Awarded the <strong>Doctoral Dissertation Fellowship</strong> at the University of Minnesota for 2026 to 2027.</span>
-        </li>
-        <li>
-          <span class="date">2026</span>
-          <span class="what">Received the <strong>Matthew J. Huber Award</strong> for Excellence in Transportation Research and Education from the Center for Transportation Studies.</span>
-        </li>
-        <li>
-          <span class="date">Jan 2026</span>
-          <span class="what">Two papers presented at the <strong>TRB 105th Annual Meeting</strong> in Washington, DC, on staged fleet electrification and on barriers to local government EV adoption.</span>
-        </li>
-        <li>
-          <span class="date">2026</span>
-          <span class="what">State technical report published with MnDOT, <strong>Transitioning to EV Fleets: Best Practices and a Decision Tool</strong>.</span>
-        </li>
-        <li>
-          <span class="date">Nov 2025</span>
-          <span class="what">Paper on incentive compatible bike rebalancing published at <strong>IEEE ITSC 2025</strong>.</span>
-        </li>
-        <li>
-          <span class="date">2025</span>
-          <span class="what">The UMN <strong>INFORMS Student Chapter</strong>, where I serve as Event Coordinator, was named a Cum Laude recipient in the 2025 to 2026 INFORMS Student Chapter Annual Awards.</span>
-        </li>
-        <li>
-          <span class="date">2025</span>
-          <span class="what">Journal article on bridging freight logistics and passenger transport published in <strong>Transportation Research Record</strong>.</span>
-        </li>
-        <li>
-          <span class="date">2025</span>
-          <span class="what">Received the <strong>ITS Minnesota Student Scholarship</strong> and the <strong>WTS Minnesota Graduate Scholarship</strong>.</span>
-        </li>
-      </ul>
-    </section>
-  </div>
-</div>
-
-<div class="band">
-  <div class="wrap">
-    <section id="research">
-      <h2>Research</h2>
-      <div class="interests">
-        <div class="interest">
-          <h3>Optimization under budget constraints</h3>
-          <p>Multi-stage charger deployment and fleet sizing for heterogeneous fleets, solved on real agency data.</p>
-        </div>
-        <div class="interest">
-          <h3>Mechanism design and incentives</h3>
-          <p>Incentive compatible schemes for crowdsourced delivery and bike rebalancing, where participation is a choice.</p>
-        </div>
-        <div class="interest">
-          <h3>Freight and passenger integration</h3>
-          <p>Using transit networks and crowd-shipped bikes for last-mile delivery without degrading passenger service.</p>
-        </div>
-        <div class="interest">
-          <h3>Network modeling at scale</h3>
-          <p>Transportation network analysis, truck flow estimation, and corridor level visualization across statewide networks.</p>
-        </div>
-        <div class="interest">
-          <h3>Learning and control</h3>
-          <p>Reinforcement learning and dynamic programming for sequential decisions, plus earlier work on neural control of autonomous vehicles.</p>
-        </div>
-        <div class="interest">
-          <h3>Research to production</h3>
-          <p>Turning models into documented open source tools that agency staff can run without a modeler present.</p>
-        </div>
+      <div>
+        <h3>Do the technical work</h3>
+        <p>Optimization, network modeling and data engineering on large, messy real-world data, delivered as reproducible code.</p>
       </div>
-    </section>
-  </div>
-</div>
+    </div>
 
-<div class="band band--tint">
-  <div class="wrap">
-    <section id="publications">
-      <h2>Publications</h2>
+    <div class="board"><table id="board">
+      <caption>Latest news</caption>
+      <thead><tr><th>When</th><th>What</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="when">Jan 2027</td><td class="what">Presenting <strong>truck weight limit policy at the statewide network scale</strong>, a Minnesota case study, at the TRB Annual Meeting in Washington, DC.</td><td class="stat s-soon" data-flap>Accepted</td></tr>
+        <tr><td class="when">2026</td><td class="what">Paper on charger deployment and fleet sizing under multi-stage budgets, in <strong>Transport Policy</strong>.</td><td class="stat s-ok" data-flap>Published</td></tr>
+        <tr><td class="when">2026</td><td class="what">MnDOT report <strong>Transitioning to EV Fleets: Best Practices and a Decision Tool</strong>, with the open source tools behind it.</td><td class="stat s-ok" data-flap>Published</td></tr>
+        <tr><td class="when">2026 to 27</td><td class="what"><strong>Doctoral Dissertation Fellowship</strong>, University of Minnesota.</td><td class="stat s-ok" data-flap>Awarded</td></tr>
+        <tr><td class="when">2026</td><td class="what"><strong>Matthew J. Huber Award</strong> for Excellence in Transportation Research and Education.</td><td class="stat s-ok" data-flap>Awarded</td></tr>
+        <tr><td class="when">Nov 2025</td><td class="what">Incentive compatible bike rebalancing with local store delivery, at <strong>IEEE ITSC</strong>.</td><td class="stat s-ok" data-flap>Presented</td></tr>
+      </tbody>
+    </table>
+      <details>
+        <summary>Earlier</summary>
+        <table>
+          <tbody>
+            <tr><td class="when">Jan 2026</td><td class="what">Two papers at the <strong>TRB 105th Annual Meeting</strong>, on staged fleet electrification and on barriers to local government EV adoption.</td><td class="stat s-ok">Presented</td></tr>
+            <tr><td class="when">2025</td><td class="what">The UMN <strong>INFORMS Student Chapter</strong>, where I am Event Coordinator, earned Cum Laude in the 2025 to 2026 Annual Awards.</td><td class="stat s-ok">Awarded</td></tr>
+            <tr><td class="when">2025</td><td class="what">Freight logistics and passenger transport article in <strong>Transportation Research Record</strong>.</td><td class="stat s-ok">Published</td></tr>
+            <tr><td class="when">2025</td><td class="what"><strong>ITS Minnesota</strong> Student Scholarship and <strong>WTS Minnesota</strong> Graduate Scholarship.</td><td class="stat s-ok">Awarded</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
 
-      <p class="subhead">Refereed journal articles</p>
-      <ol class="pubs">
-        <li class="pub">
-          <div>
-            <h3>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
-            <p class="venue">Transport Policy, 2026</p>
-            <div class="actions">
-              <a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=s7oPp-sAAAAJ&amp;citation_for_view=s7oPp-sAAAAJ:Y0pCki6q_DkC">Paper</a>
-              <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Preprint</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Efficient Urban Transit Systems: Bridging Freight Logistics and Passenger Transport</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Baek, K., &amp; Khani, A.</p>
-            <p class="venue">Transportation Research Record, 2679(11), 782–804, 2025</p>
-            <div class="actions">
-              <a href="https://journals.sagepub.com/doi/abs/10.1177/03611981251350642">Paper</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>An adaptive modified neural lateral-longitudinal control system for path following of autonomous vehicles</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Amirkhani, A., &amp; Shokouhi, S. B.</p>
-            <p class="venue">Engineering Science and Technology, an International Journal, 24(1), 126–137, 2021</p>
-            <div class="actions">
-              <a href="https://www.sciencedirect.com/science/article/pii/S2215098620342658">Paper</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Trajectory tracking of a quadrotor using a robust adaptive type-2 fuzzy neural controller optimized by cuckoo algorithm</h3>
-            <p class="authors">Shirzadeh, M., Amirkhani, A., <span class="me">Tork, N.</span>, &amp; Taghavifar, H.</p>
-            <p class="venue">ISA Transactions, 114, 171–190, 2021</p>
-            <div class="actions">
-              <a href="https://www.sciencedirect.com/science/article/abs/pii/S0019057820305668">Paper</a>
-            </div>
-          </div>
-        </li>
-      </ol>
-
-      <p class="subhead">Under review and in revision</p>
-      <ol class="pubs">
-        <li class="pub">
-          <div>
-            <h3>Psychological and Operational Barriers to Public Electric Vehicle Fleet Adoption in Minnesota</h3>
-            <p class="authors">Bhandari, S., Panhorst, J., Ryan, A., <span class="me">Tork, N.</span>, Baek, K., &amp; Khani, A.</p>
-            <p class="venue">Transportation Research Interdisciplinary Perspectives</p>
-            <div class="actions">
-              <span class="status">Under review</span>
-            </div>
-          </div>
-        </li>
-      </ol>
-
-      <p class="subhead">Refereed conference proceedings</p>
-      <ol class="pubs">
-        <li class="pub">
-          <div>
-            <h3>Evaluating Incremental Truck Weight Limit Policy at the Statewide Network Scale: A Minnesota Case Study</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Khani, A., Baek, K., &amp; Marasteanu, M.</p>
-            <p class="venue">Transportation Research Board 106th Annual Meeting, Washington, DC, January 2027 (TRBAM-27-03211)</p>
-            <div class="actions">
-              <span class="status">Accepted for presentation</span>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Planning Charging Infrastructure Network and Fleet Size for Mixed Fleets in Staged Electrification with Budget Constraints</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
-            <p class="venue">Transportation Research Board 105th Annual Meeting, Washington, DC, January 2026</p>
-            <div class="actions">
-              <a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/24669">Program</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Barriers to Local Government Electric Vehicle Fleet Transitions: Insights from Minnesota</h3>
-            <p class="authors">Bhandari, S., Panhorst, J., Ryan, A., <span class="me">Tork, N.</span>, Baek, K., &amp; Khani, A.</p>
-            <p class="venue">Transportation Research Board 105th Annual Meeting, Washington, DC, January 2026</p>
-            <div class="actions">
-              <a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/24669">Program</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Incentive-Compatible Mechanism for Integrated Bike Rebalancing and Local Store Deliveries</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, &amp; Khani, A.</p>
-            <p class="venue">IEEE 28th International Conference on Intelligent Transportation Systems (ITSC), 4604–4610, November 2025</p>
-            <div class="actions">
-              <a href="https://ieeexplore.ieee.org/abstract/document/11423061">Paper</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Efficient Urban Transit Systems: Bridging Freight Logistics and Passenger Transport</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Baek, K., &amp; Khani, A.</p>
-            <p class="venue">Transportation Research Board 104th Annual Meeting, Washington, DC, January 2025</p>
-            <div class="actions">
-              <a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/23018">Program</a>
-            </div>
-          </div>
-        </li>
-        <li class="pub">
-          <div>
-            <h3>Path tracking of an autonomous vehicle by means of an indirect adaptive neural controller</h3>
-            <p class="authors">Amirkhani, A., Shirzadeh, M., <span class="me">Tork, N.</span>, &amp; Shokouhi, S. B.</p>
-            <p class="venue">7th International Conference on Robotics and Mechatronics (ICRoM), 398–403, IEEE, November 2019</p>
-            <div class="actions">
-              <a href="https://ieeexplore.ieee.org/abstract/document/9071897">Paper</a>
-            </div>
-          </div>
-        </li>
-      </ol>
-
-      <p class="subhead">Technical reports</p>
-      <ol class="pubs">
-        <li class="pub">
-          <div>
-            <h3>Transitioning to EV Fleets: Best Practices and a Decision Tool</h3>
-            <p class="authors"><span class="me">Tork, N.</span>, Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
-            <p class="venue">Minnesota Department of Transportation, Report No. MN 2026-15, 2026</p>
-            <div class="actions">
-              <a href="https://mdl.mndot.gov/items/202615">Report</a>
-            </div>
-          </div>
-        </li>
-      </ol>
-
-      <p class="subhead">Presentations and posters</p>
-      <ul class="talks">
-        <li>
-          <span class="date">Nov 2025</span>
-          <span><em>Assessment of Sustainable Last-Mile Delivery Strategies with Urban Transit and Crowdsourced Bikes.</em> CTS Transportation Research Conference, Minneapolis, MN.</span>
-        </li>
-        <li>
-          <span class="date">Oct 2025</span>
-          <span><em>Incentive-Compatible Mechanism for Integrated Bike Rebalancing and Local Store Deliveries.</em> INFORMS Annual Meeting, Atlanta, GA.</span>
-        </li>
-        <li>
-          <span class="date">Aug 2025</span>
-          <span><em>Transitioning to EV Fleets: Best Practices and a Decision Tool.</em> MnDOT-funded project webinar hosted by the Minnesota Local Road Research Board.</span>
-        </li>
-        <li>
-          <span class="date">Jul 2025</span>
-          <span><em>A Last-Mile Delivery Approach Using Public Buses and Bicycle Crowd-Shipping Systems.</em> Poster, Conference on Advanced Systems in Public Transport (CASPT), Kyoto, Japan.</span>
-        </li>
-        <li>
-          <span class="date">Oct 2024</span>
-          <span><em>Advanced Multimodal Urban Transport: Synchronizing Freight Delivery and Passenger Movement.</em> INFORMS Annual Meeting, Seattle, WA.</span>
-        </li>
-        <li>
-          <span class="date">Oct 2023</span>
-          <span><em>Electric Vehicle Charging Behavior Optimization in Congested Network Environments.</em> INFORMS Annual Meeting, Phoenix, AZ.</span>
-        </li>
-      </ul>
-    </section>
-  </div>
-</div>
-
-<div class="band">
-  <div class="wrap">
-    <section id="software">
-      <h2>Open source software</h2>
-      <div class="projects">
-        <div class="project">
-          <h3>EV Fleet Optimization Tool</h3>
-          <p>Generates cost-effective, multi-phase EV transition plans for public agencies, covering vehicle procurement, charging infrastructure, and scheduling.</p>
-          <div class="stack"><span>Python</span><span>Optimization</span><span>UMN Transit Lab</span></div>
-          <span class="link"><a href="https://github.com/UMN-Transit-Lab/EV-Fleet-Optimization-Tool">Repository</a></span>
-        </div>
-
-        <div class="project">
-          <h3>EV Life Cycle Cost Calculation Tool</h3>
-          <p>Calculates and compares 10-year life cycle costs and payback periods so agencies can identify financially viable fleet electrification targets.</p>
-          <div class="stack"><span>Python</span><span>Cost modeling</span><span>UMN Transit Lab</span></div>
-          <span class="link"><a href="https://github.com/UMN-Transit-Lab/EV-Life-Cycle-Cost-Calculation-Tool">Repository</a></span>
-        </div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!--
-  ================= WRITING SECTION =================
-  Ready to go. When your first post is written, do two things.
-
-  1. Delete the line that says REMOVE-THIS-LINE-TO-PUBLISH below, and the
-     matching one at the end of this block. That turns the section on.
-  2. In the top navigation, uncomment the Writing link (search for "nav-writing").
-
-  Each post is one <details> block. Copy the whole <details> to add another,
-  newest first. The id on it gives you a shareable link, for example
-  https://nastarantork.github.io/#agents-and-fleet-models
-  =================================================== REMOVE-THIS-LINE-TO-PUBLISH
-
-<div class="band">
-  <div class="wrap">
-    <section id="writing">
-      <h2>Writing</h2>
-      <ul class="posts">
-
-        <li>
-          <details class="post" id="agents-and-fleet-models">
-            <summary>
-              <span class="date">Oct 2026</span>
-              <span class="ttl">Post title goes here
-                <span class="sub">One sentence saying what the post argues, shown before anyone opens it.</span>
-              </span>
-              <span class="chev" aria-hidden="true">+</span>
-            </summary>
-            <div class="body">
-              <p>First paragraph.</p>
-              <p>Second paragraph.</p>
-              <h4>A subheading if the post needs one</h4>
-              <p>More text.</p>
-              <ul>
-                <li>A list item, if useful.</li>
-              </ul>
-            </div>
-          </details>
-        </li>
-
-      </ul>
-    </section>
-  </div>
-</div>
-
-  REMOVE-THIS-LINE-TO-PUBLISH =================================================
--->
-
-<div class="band band--tint">
-  <div class="wrap">
-    <section id="skills">
-      <h2>Technical skills</h2>
-      <dl class="skills">
-        <div class="skillrow">
-          <dt>Programming</dt>
-          <dd>
-            <span>Python</span><span>pandas</span><span>NumPy</span><span>SciPy</span>
-            <span>scikit-learn</span><span>matplotlib</span><span>SQL</span>
-            <span>Power BI</span><span>GitHub</span>
-          </dd>
-        </div>
-        <div class="skillrow">
-          <dt>Optimization and OR</dt>
-          <dd>
-            <span>Linear and nonlinear optimization</span><span>Discrete optimization</span>
-            <span>Multi-stage planning under budget constraints</span><span>Mechanism design</span>
-            <span>Stochastic processes and queuing</span><span>Stochastic simulation</span>
-            <span>Decision analysis</span>
-          </dd>
-        </div>
-        <div class="skillrow">
-          <dt>Machine learning</dt>
-          <dd>
-            <span>Supervised learning</span><span>Reinforcement learning</span>
-            <span>Dynamic programming</span><span>Neural control</span>
-            <span>Statistical inference</span>
-          </dd>
-        </div>
-        <div class="skillrow">
-          <dt>Data and delivery</dt>
-          <dd>
-            <span>Large dataset validation</span><span>Reproducible pipelines</span>
-            <span>Open source tool development</span><span>Technical writing</span>
-            <span>Presenting to non specialist audiences</span>
-          </dd>
-        </div>
-      </dl>
-    </section>
-  </div>
-</div>
-
-<div class="band">
-  <div class="wrap">
-    <section id="awards">
-      <h2>Awards and fellowships</h2>
-      <ul class="awards">
-        <li>
-          <span class="date">2026–2027</span>
-          <span class="what">Doctoral Dissertation Fellowship
-            <span>University of Minnesota. Competitive fellowship for the university's most accomplished Ph.D. candidates, supporting full-time dissertation completion.</span>
-          </span>
-        </li>
-        <li>
-          <span class="date">2026</span>
-          <span class="what">Matthew J. Huber Award for Excellence in Transportation Research and Education
-            <span>Center for Transportation Studies. Awarded annually to up to two University of Minnesota graduate students.</span>
-          </span>
-        </li>
-        <li>
-          <span class="date">2025</span>
-          <span class="what">ITS Minnesota Student Scholarship Award
-            <span>Intelligent Transportation Systems Minnesota.</span>
-          </span>
-        </li>
-        <li>
-          <span class="date">2025</span>
-          <span class="what">WTS Graduate Scholarship
-            <span>Women in Transportation Seminar, Minnesota Chapter.</span>
-          </span>
-        </li>
-        <li>
-          <span class="date">2023, 2025</span>
-          <span class="what">TRB Student Travel Award
-            <span>Center for Transportation Studies, University of Minnesota.</span>
-          </span>
-        </li>
-        <li>
-          <span class="date">2022</span>
-          <span class="what">CEGE Fellowship
-            <span>Department of Civil, Environmental, and Geo-Engineering. Awarded to top incoming Ph.D. students.</span>
-          </span>
-        </li>
-        <li>
-          <span class="date">2020</span>
-          <span class="what">Top-Ranked Graduate in Electrical Engineering
-            <span>Iran University of Science and Technology.</span>
-          </span>
-        </li>
-      </ul>
-    </section>
-  </div>
-</div>
-
-<div class="band band--tint">
-  <div class="wrap">
-    <section id="experience">
-      <h2>Experience</h2>
-      <div class="entries">
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Graduate Research Assistant<span class="where">Transit Lab, Department of Civil, Environmental, and Geo-Engineering, University of Minnesota</span></p>
-            <span class="when">Aug 2022 to present</span>
-          </div>
-          <p class="meta">Principal Investigator: Dr. Alireza Khani</p>
-          <ul>
-            <li><strong>Project lead on two MnDOT funded studies</strong>, public fleet electrification and truck weight limit policy. Owned the work end to end, from raw agency data to models, tools, and reports.</li>
-            <li><strong>Optimization.</strong> Formulated and solved multi-stage models for charger placement and fleet sizing under budget limits, on real fleet and network data.</li>
-            <li><strong>Data engineering and network modeling.</strong> Fused tonnage, weigh-in-motion, and location data into statewide truck demand, then ran freight assignment across eight policy scenarios to measure route shifts, vehicle miles traveled, and permit revenue.</li>
-            <li><strong>Mechanism design.</strong> Designed incentive-compatible schemes that combine bike rebalancing with last-mile store deliveries.</li>
-            <li><strong>Open source delivery.</strong> Released two documented Python tools that Minnesota agencies can use and are now implementing, backed by a state technical report and a public webinar.</li>
-            <li><strong>Writing and communication.</strong> Contributed to research proposals, and published and presented at TRB, INFORMS, IEEE ITSC, and CASPT.</li>
-          </ul>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Capstone Researcher<span class="where">Collins Aerospace, through Industrial and Systems Engineering</span></p>
-            <span class="when">2025</span>
-          </div>
-          <p>Co-designed and implemented the Stat-a-thon: Applied Statistics in Manufacturing Development, an internal competition built to raise analytical capacity across the organization.</p>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Undergraduate Research Assistant<span class="where">Machine Vision Lab, Iran University of Science and Technology</span></p>
-            <span class="when">2019 to 2020</span>
-          </div>
-          <p class="meta">Principal Investigator: Dr. Shahriar Baradaran Shokouhi</p>
-          <p>Developed and tested adaptive neural controllers for path following in autonomous vehicles and trajectory tracking in quadrotors, producing three peer-reviewed publications.</p>
-        </div>
-
-      </div>
-    </section>
-  </div>
-</div>
-
-<div class="band">
-  <div class="wrap">
-    <section id="education">
-      <h2>Education</h2>
-      <div class="entries">
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Ph.D., Civil Engineering (Transportation)<span class="where">University of Minnesota, Twin Cities</span></p>
-            <span class="when">2022 to present</span>
-          </div>
-          <p class="meta">Advisor: Dr. Alireza Khani, Transit Lab</p>
-          <p class="course"><b>Coursework</b><br>Transportation Data Analysis, Transportation Network Analysis, Transport Cyber-Physical Systems, Infrastructure Systems Engineering.</p>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">M.S., Data Science in Operations Research<span class="where">Industrial and Systems Engineering, University of Minnesota</span></p>
-            <span class="when">2022 to 2025</span>
-          </div>
-          <p class="course"><b>Coursework</b><br>Decision Analysis, Introduction to Nonlinear Optimization, Operations Research for Data Science, Theory of Statistics I, Discrete Optimization, Machine Learning Fundamentals, Stochastic Simulation and Machine Learning, Advanced Reinforcement Learning and Dynamic Programming.</p>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">B.S., Electrical Engineering<span class="where">Iran University of Science and Technology</span></p>
-            <span class="when">2020</span>
-          </div>
-          <p>Top-ranked graduate in Electrical Engineering.</p>
-        </div>
-
-      </div>
-    </section>
-  </div>
-</div>
-
-<div class="band band--tint">
-  <div class="wrap">
-    <section id="teaching">
-      <h2>Teaching and mentoring</h2>
-      <div class="entries">
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Infrastructure Systems Engineering, CEGE 4214<span class="where">Teaching Assistant, University of Minnesota</span></p>
-            <span class="when">Fall 2025, Fall 2026</span>
-          </div>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Computer Applications I, CEGE 3101<span class="where">Teaching Assistant, University of Minnesota</span></p>
-            <span class="when">Spring 2024</span>
-          </div>
-          <p>Held office hours, graded, and supported students working in Python and spreadsheet tools.</p>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Undergraduate research mentor<span class="where">Industrial and Systems Engineering, University of Minnesota</span></p>
-          </div>
-          <p>Supervised an undergraduate researcher through a semester of research credit.</p>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <p class="entry-title">Teaching Assistant<span class="where">Department of Electrical Engineering, Iran University of Science and Technology</span></p>
-            <span class="when">2018 to 2019</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-  </div>
-</div>
-
-<div class="band">
-  <div class="wrap">
-    <section id="service">
-      <h2>Service and professional activity</h2>
-      <ul class="plainlist">
-        <li><b>Event Coordinator</b>, INFORMS Student Chapter, University of Minnesota. The chapter was named a Cum Laude recipient in the 2025 to 2026 INFORMS Student Chapter Annual Awards.</li>
-        <li><b>Friend of the Committee</b>, Network Modeling Committee (AEP40), Transportation Research Board.</li>
-        <li><b>Friend of the Committee</b>, Freight Logistics Committee (AT012), Transportation Research Board.</li>
-        <li><b>Reviewer</b>, Transportation Research Board Annual Meeting.</li>
-        <li><b>Reviewer</b>, IEEE Intelligent Transportation Systems Conference (ITSC).</li>
-      </ul>
-    </section>
-  </div>
-</div>
-
-<footer>
-  <div class="foot-inner">
-    <span>Last stop. Thanks for riding along. Updated October 2026.</span>
-    <span class="foot-links">
-      <a href="mailto:tork0100@umn.edu">Email</a>
+    <div class="contact-row">
+      <a href="mailto:tork0100@umn.edu">tork0100@umn.edu</a>
       <a href="https://github.com/NastaranTork">GitHub</a>
       <a href="https://www.linkedin.com/in/nastaran-tork-5a67241aa/">LinkedIn</a>
-      <a href="cv.pdf">CV</a>
-    </span>
+      <a href="https://scholar.google.com/citations?user=s7oPp-sAAAAJ">Google Scholar</a>
+    </div>
   </div>
-</footer>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <div class="head"><h2>Projects</h2><p>Three areas where I have led work, advised stakeholders and delivered tools.</p></div>
+
+    <div class="row">
+      <div>
+        <h3>Freight on passenger networks</h3>
+        <svg viewBox="0 0 460 150" role="img" aria-label="A bus line with parcels riding between stops and a bike carrying one parcel to a door">
+          <path class="dia-dim" d="M20 70 H440"/>
+          <path class="dia-line" d="M20 70 H300"/>
+          <circle class="dia-dot" cx="20" cy="70" r="8"/><circle class="dia-dot" cx="110" cy="70" r="8"/><circle class="dia-dot" cx="200" cy="70" r="8"/><circle class="dia-dot" cx="300" cy="70" r="8"/>
+          <rect class="dia-pk" x="141" y="50" width="14" height="14" rx="2"/><rect class="dia-pk" x="162" y="50" width="14" height="14" rx="2"/>
+          <path class="dia-line" d="M300 70 Q330 70 345 100 T400 118" stroke-dasharray="2 9"/>
+          <circle class="dia-dot" cx="400" cy="118" r="8"/>
+          <text class="dia-txt" x="16" y="40">Bus line</text>
+          <text class="dia-txt" x="300" y="146">Bike to the door</text>
+        </svg>
+      </div>
+      <div>
+        <p>Delivery vans fight for the same streets that buses and bikes already run on. I model how parcels can ride scheduled transit and crowd-shipped bikes for the last mile, and how to design payments so that joining is worth it for riders and the system, without hurting passenger service.</p>
+        <ul class="out">
+          <li><a href="https://journals.sagepub.com/doi/abs/10.1177/03611981251350642">Bridging freight logistics and passenger transport</a>, Transportation Research Record 2025</li>
+          <li><a href="https://ieeexplore.ieee.org/abstract/document/11423061">Incentive compatible bike rebalancing and store delivery</a>, IEEE ITSC 2025</li>
+          <li>Dissertation chapters on integrating last-mile delivery with transit, bike share, and multimodal urban freight</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <h3>Electric public fleets</h3>
+        <svg viewBox="0 0 460 150" role="img" aria-label="Three stages of growing charger investment under a flat budget line">
+          <path class="dia-dim" d="M20 130 H440"/>
+          <rect x="40" y="100" width="70" height="30" fill="var(--line)"/>
+          <rect x="150" y="76" width="70" height="54" fill="var(--line)"/>
+          <rect x="260" y="48" width="70" height="82" fill="var(--line)"/>
+          <rect x="370" y="22" width="50" height="108" fill="var(--accent)"/>
+          <path class="dia-line" d="M20 34 H440" stroke-dasharray="3 9"/>
+          <text class="dia-txt" x="20" y="22">Budget</text>
+          <text class="dia-txt" x="40" y="148">Stage 1</text><text class="dia-txt" x="150" y="148">Stage 2</text><text class="dia-txt" x="260" y="148">Stage 3</text><text class="dia-txt" x="370" y="148">Stage 4</text>
+        </svg>
+      </div>
+      <div>
+        <p>A fleet manager has a budget, a depot and a grid connection, and has to decide what to buy and where to charge, in what order. I plan multi-stage charger deployment and fleet sizing under budget limits on real fleet data, and turned the results into a state report and two Python tools.</p>
+        <ul class="out">
+          <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Charger deployment and fleet sizing under multi-stage budgets</a>, Transport Policy 2026</li>
+          <li><a href="https://mdl.mndot.gov/items/202615">Transitioning to EV Fleets</a>, MnDOT report MN 2026-15</li>
+          <li><a href="#tools">Two open source planning tools</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <h3>Truck policy at network scale</h3>
+        <svg viewBox="0 0 460 150" role="img" aria-label="A statewide corridor network where one corridor thins and another thickens after a policy change">
+          <path class="dia-dim" d="M20 120 L120 80 L220 100 L330 40 L440 60" stroke-width="3"/>
+          <path class="dia-line" d="M20 120 L120 80 L220 100" style="stroke-width:10"/>
+          <path class="dia-line" d="M220 100 L330 40 L440 60" style="stroke-width:2"/>
+          <path class="dia-dim" d="M120 80 L180 30 L330 40" stroke-width="3"/>
+          <path class="dia-line" d="M120 80 L180 30 L330 40" style="stroke-width:7"/>
+          <circle class="dia-dot" cx="20" cy="120" r="7"/><circle class="dia-dot" cx="120" cy="80" r="7"/><circle class="dia-dot" cx="220" cy="100" r="7"/><circle class="dia-dot" cx="330" cy="40" r="7"/><circle class="dia-dot" cx="440" cy="60" r="7"/><circle class="dia-dot" cx="180" cy="30" r="7"/>
+          <text class="dia-txt" x="20" y="146">Corridor width is truck flow</text>
+        </svg>
+      </div>
+      <div>
+        <p>When a weight limit changes, trucks change routes. I fused tonnage, weigh-in-motion and location data into statewide truck demand, then ran freight assignment across eight policy scenarios to see route shifts, vehicle miles traveled and permit revenue. This is the second MnDOT funded study I led.</p>
+        <ul class="out">
+          <li>Statewide truck weight limit policy evaluation, TRB 2027 (accepted)</li>
+          <li>Corridor level truck flow visualization for planners</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="methods"><b>Methods underneath.</b> Large-scale and discrete optimization, mechanism design, stochastic processes, dynamic programming and reinforcement learning for sequential decisions under uncertainty, and the data engineering that makes models run on messy real data.</p>
+  </div>
+</section>
+
+<section id="papers">
+  <div class="wrap">
+    <div class="head"><h2>Papers</h2><p>Newest first. My name is in bold.</p></div>
+    <ol class="papers">
+      <li><div class="yr">2027</div><div>
+        <h3>Evaluating Incremental Truck Weight Limit Policy at the Statewide Network Scale: A Minnesota Case Study</h3>
+        <p class="auth"><b>Tork, N.</b>, Khani, A., Baek, K., &amp; Marasteanu, M.</p>
+        <p class="ven">Transportation Research Board 106th Annual Meeting, Washington, DC (TRBAM-27-03211)</p>
+        <div class="tags"><span class="kind">Conference</span><span class="chip s-soon">Accepted for presentation</span></div></div></li>
+      <li><div class="yr">2026</div><div>
+        <h3>Charger Deployment and Fleet Sizing for Heterogeneous Fleets Under Budget-Constrained Multi-Stage Electrification</h3>
+        <p class="auth"><b>Tork, N.</b>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
+        <p class="ven">Transport Policy</p>
+        <div class="tags"><span class="kind">Journal</span><a href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=s7oPp-sAAAAJ&amp;citation_for_view=s7oPp-sAAAAJ:Y0pCki6q_DkC">Paper</a><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6100409">Preprint</a></div></div></li>
+      <li><div class="yr">2026</div><div>
+        <h3>Transitioning to EV Fleets: Best Practices and a Decision Tool</h3>
+        <p class="auth"><b>Tork, N.</b>, Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
+        <p class="ven">Minnesota Department of Transportation, Report No. MN 2026-15</p>
+        <div class="tags"><span class="kind">Technical report</span><a href="https://mdl.mndot.gov/items/202615">Report</a></div></div></li>
+      <li><div class="yr">2026</div><div>
+        <h3>Planning Charging Infrastructure Network and Fleet Size for Mixed Fleets in Staged Electrification with Budget Constraints</h3>
+        <p class="auth"><b>Tork, N.</b>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
+        <p class="ven">Transportation Research Board 105th Annual Meeting, Washington, DC, January 2026</p>
+        <div class="tags"><span class="kind">Conference</span><a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/24669">Program</a></div></div></li>
+      <li><div class="yr">2026</div><div>
+        <h3>Barriers to Local Government Electric Vehicle Fleet Transitions: Insights from Minnesota</h3>
+        <p class="auth">Bhandari, S., Panhorst, J., Ryan, A., <b>Tork, N.</b>, Baek, K., &amp; Khani, A.</p>
+        <p class="ven">Transportation Research Board 105th Annual Meeting, Washington, DC, January 2026</p>
+        <div class="tags"><span class="kind">Conference</span><a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/24669">Program</a></div></div></li>
+      <li><div class="yr">2026</div><div>
+        <h3>Psychological and Operational Barriers to Public Electric Vehicle Fleet Adoption in Minnesota</h3>
+        <p class="auth">Bhandari, S., Panhorst, J., Ryan, A., <b>Tork, N.</b>, Baek, K., &amp; Khani, A.</p>
+        <p class="ven">Transportation Research Interdisciplinary Perspectives</p>
+        <div class="tags"><span class="kind">Journal</span><span class="chip s-wait">Under review</span></div></div></li>
+      <li><div class="yr">2025</div><div>
+        <h3>Efficient Urban Transit Systems: Bridging Freight Logistics and Passenger Transport</h3>
+        <p class="auth"><b>Tork, N.</b>, Baek, K., &amp; Khani, A.</p>
+        <p class="ven">Transportation Research Record, 2679(11), 782&ndash;804. Also presented at TRB 104th Annual Meeting, January 2025</p>
+        <div class="tags"><span class="kind">Journal</span><a href="https://journals.sagepub.com/doi/abs/10.1177/03611981251350642">Paper</a><a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/23018">Program</a></div></div></li>
+      <li><div class="yr">2025</div><div>
+        <h3>Incentive-Compatible Mechanism for Integrated Bike Rebalancing and Local Store Deliveries</h3>
+        <p class="auth"><b>Tork, N.</b>, &amp; Khani, A.</p>
+        <p class="ven">IEEE 28th International Conference on Intelligent Transportation Systems (ITSC), 4604&ndash;4610</p>
+        <div class="tags"><span class="kind">Conference</span><a href="https://ieeexplore.ieee.org/abstract/document/11423061">Paper</a></div></div></li>
+      <li><div class="yr">2021</div><div>
+        <h3>An adaptive modified neural lateral-longitudinal control system for path following of autonomous vehicles</h3>
+        <p class="auth"><b>Tork, N.</b>, Amirkhani, A., &amp; Shokouhi, S. B.</p>
+        <p class="ven">Engineering Science and Technology, an International Journal, 24(1), 126&ndash;137</p>
+        <div class="tags"><span class="kind">Journal</span><a href="https://www.sciencedirect.com/science/article/pii/S2215098620342658">Paper</a></div></div></li>
+      <li><div class="yr">2021</div><div>
+        <h3>Trajectory tracking of a quadrotor using a robust adaptive type-2 fuzzy neural controller optimized by cuckoo algorithm</h3>
+        <p class="auth">Shirzadeh, M., Amirkhani, A., <b>Tork, N.</b>, &amp; Taghavifar, H.</p>
+        <p class="ven">ISA Transactions, 114, 171&ndash;190</p>
+        <div class="tags"><span class="kind">Journal</span><a href="https://www.sciencedirect.com/science/article/abs/pii/S0019057820305668">Paper</a></div></div></li>
+      <li><div class="yr">2019</div><div>
+        <h3>Path tracking of an autonomous vehicle by means of an indirect adaptive neural controller</h3>
+        <p class="auth">Amirkhani, A., Shirzadeh, M., <b>Tork, N.</b>, &amp; Shokouhi, S. B.</p>
+        <p class="ven">7th International Conference on Robotics and Mechatronics (ICRoM), 398&ndash;403, IEEE</p>
+        <div class="tags"><span class="kind">Conference</span><a href="https://ieeexplore.ieee.org/abstract/document/9071897">Paper</a></div></div></li>
+    </ol>
+
+    <details class="more">
+      <summary>Talks and posters</summary>
+      <ul class="talks">
+        <li><span>Nov 2025</span><span><em>Assessment of Sustainable Last-Mile Delivery Strategies with Urban Transit and Crowdsourced Bikes.</em> CTS Transportation Research Conference, Minneapolis, MN.</span></li>
+        <li><span>Oct 2025</span><span><em>Incentive-Compatible Mechanism for Integrated Bike Rebalancing and Local Store Deliveries.</em> INFORMS Annual Meeting, Atlanta, GA.</span></li>
+        <li><span>Aug 2025</span><span><em>Transitioning to EV Fleets: Best Practices and a Decision Tool.</em> MnDOT-funded project webinar hosted by the Minnesota Local Road Research Board.</span></li>
+        <li><span>Jul 2025</span><span><em>A Last-Mile Delivery Approach Using Public Buses and Bicycle Crowd-Shipping Systems.</em> Poster, Conference on Advanced Systems in Public Transport (CASPT), Kyoto, Japan.</span></li>
+        <li><span>Oct 2024</span><span><em>Advanced Multimodal Urban Transport: Synchronizing Freight Delivery and Passenger Movement.</em> INFORMS Annual Meeting, Seattle, WA.</span></li>
+        <li><span>Oct 2023</span><span><em>Electric Vehicle Charging Behavior Optimization in Congested Network Environments.</em> INFORMS Annual Meeting, Phoenix, AZ.</span></li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="head"><h2>Tools</h2><p>Open source Python, written with the Transit Lab for agency staff.</p></div>
+    <p class="note">Both tools are public. Minnesota agencies can use them, and some are now putting them into practice.</p>
+    <div class="tools">
+      <div class="tool">
+        <h3>EV Fleet Optimization Tool</h3>
+        <p>Builds cost-effective, multi-phase EV transition plans covering vehicle procurement, charging infrastructure and scheduling.</p>
+        <a class="lnk" href="https://github.com/UMN-Transit-Lab/EV-Fleet-Optimization-Tool">Repository on GitHub</a>
+      </div>
+      <div class="tool">
+        <h3>EV Life Cycle Cost Tool</h3>
+        <p>Compares 10-year life cycle costs and payback periods so agencies can see which vehicles are worth electrifying first.</p>
+        <a class="lnk" href="https://github.com/UMN-Transit-Lab/EV-Life-Cycle-Cost-Calculation-Tool">Repository on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="head"><h2>Experience</h2></div>
+    <div class="job">
+      <div class="when2">Aug 2022 to now</div>
+      <div>
+        <h3>Graduate Research Assistant</h3>
+        <p class="org">Transit Lab, University of Minnesota. Advisor Dr. Alireza Khani.</p>
+        <ul>
+          <li><b>Led two MnDOT funded studies</b>, public fleet electrification and truck weight limit policy, from raw agency data to models, tools and reports.</li>
+          <li><b>Optimization.</b> Formulated and solved multi-stage models for charger placement and fleet sizing under budget limits.</li>
+          <li><b>Data engineering and network modeling.</b> Fused tonnage, weigh-in-motion and location data into statewide truck demand, then ran freight assignment across eight policy scenarios.</li>
+          <li><b>Mechanism design.</b> Designed incentive-compatible schemes that combine bike rebalancing with last-mile store deliveries.</li>
+          <li><b>Open source delivery.</b> Released two documented Python tools, backed by a state technical report and a public webinar.</li>
+          <li><b>Writing and communication.</b> Contributed to research proposals. Published and presented at TRB, INFORMS, IEEE ITSC and CASPT.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="job">
+      <div class="when2">2025</div>
+      <div>
+        <h3>Capstone Researcher</h3>
+        <p class="org">Collins Aerospace, through Industrial and Systems Engineering</p>
+        <p>Co-designed and ran the Stat-a-thon, an internal applied statistics competition for manufacturing development, built to raise analytical skills across the organization.</p>
+      </div>
+    </div>
+    <div class="job">
+      <div class="when2">2019 to 2020</div>
+      <div>
+        <h3>Undergraduate Research Assistant</h3>
+        <p class="org">Machine Vision Lab, Iran University of Science and Technology</p>
+        <p>Developed and tested adaptive neural controllers for autonomous vehicle path following and quadrotor trajectory tracking, with three peer-reviewed publications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="background">
+  <div class="wrap">
+    <div class="head"><h2>Background</h2></div>
+    <div class="bg3">
+      <div>
+        <h3>Education</h3>
+        <ul>
+          <li><b>Ph.D., Civil Engineering (Transportation)</b><small>University of Minnesota, 2022 to present</small></li>
+          <li><b>M.S., Data Science in Operations Research</b><small>Industrial and Systems Engineering, University of Minnesota, 2022 to 2025</small></li>
+          <li><b>B.S., Electrical Engineering</b><small>Iran University of Science and Technology, 2020. Top-ranked graduate.</small></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Teaching</h3>
+        <ul>
+          <li><b>Infrastructure Systems Engineering, CEGE 4214</b><small>Teaching assistant, Fall 2025 and Fall 2026</small></li>
+          <li><b>Computer Applications I, CEGE 3101</b><small>Teaching assistant, Spring 2024. Python and spreadsheet tools.</small></li>
+          <li><b>Undergraduate research mentor</b><small>Supervised a semester of research credit in Industrial and Systems Engineering</small></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Service</h3>
+        <ul>
+          <li><b>Event Coordinator, INFORMS Student Chapter</b><small>University of Minnesota. Cum Laude, 2025 to 2026 Annual Awards.</small></li>
+          <li><b>Friend of the Committee</b><small>TRB Network Modeling (AEP40) and Freight Logistics (AT012)</small></li>
+          <li><b>Reviewer</b><small>TRB Annual Meeting and IEEE ITSC</small></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="head"><h2>Toolkit</h2></div>
+      <dl class="skills">
+        <div><dt>Code</dt><dd>Python (pandas, NumPy, SciPy, scikit-learn, matplotlib), SQL, Power BI, GitHub</dd></div>
+        <div><dt>Optimization</dt><dd>Linear, nonlinear and discrete optimization, multi-stage planning under budgets, mechanism design, stochastic processes and queuing, stochastic simulation, decision analysis</dd></div>
+        <div><dt>Learning</dt><dd>Supervised learning, reinforcement learning, dynamic programming, neural control, statistical inference</dd></div>
+        <div><dt>Delivery</dt><dd>Large dataset validation, reproducible pipelines, open source tool development, technical writing, presenting to non specialist audiences</dd></div>
+      </dl>
+    </div>
+
+    <div class="sub">
+      <div class="head"><h2>Awards</h2></div>
+      <ul class="aw">
+        <li><span class="d">2026 to 27</span><span><b>Doctoral Dissertation Fellowship</b><small>University of Minnesota. Competitive fellowship for the university&rsquo;s most accomplished Ph.D. candidates.</small></span></li>
+        <li><span class="d">2026</span><span><b>Matthew J. Huber Award for Excellence in Transportation Research and Education</b><small>Center for Transportation Studies. Given to up to two University of Minnesota graduate students each year.</small></span></li>
+        <li><span class="d">2025</span><span><b>ITS Minnesota Student Scholarship Award</b></span></li>
+        <li><span class="d">2025</span><span><b>WTS Graduate Scholarship</b><small>Women in Transportation Seminar, Minnesota Chapter.</small></span></li>
+        <li><span class="d">2023, 2025</span><span><b>TRB Student Travel Award</b><small>Center for Transportation Studies, University of Minnesota.</small></span></li>
+        <li><span class="d">2022</span><span><b>CEGE Fellowship</b><small>Awarded to top incoming Ph.D. students.</small></span></li>
+        <li><span class="d">2020</span><span><b>Top-Ranked Graduate in Electrical Engineering</b><small>Iran University of Science and Technology.</small></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="close">
+  <div class="wrap">
+    <h2>Looking for roles where good math meets real operations, at scale.</h2>
+    <p>I am finishing my Ph.D. in late 2027 and I like problems where the model has to survive contact with real data and real operators.</p>
+    <div class="btns">
+      <a class="btn main" href="mailto:tork0100@umn.edu">Email me</a>
+      <a class="btn" href="cv.pdf">Read my CV</a>
+      <a class="btn" href="https://www.linkedin.com/in/nastaran-tork-5a67241aa/">LinkedIn</a>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap">Nastaran Tork. Updated October 2026.</div></footer>
 
 <script>
 (function(){
-  var r=document.querySelector('.rider'), wraps=document.querySelectorAll('.band > .wrap'), hero=document.querySelector('.hero');
-  if(!r||!wraps.length||!hero)return;
-  var tick=false;
-  function place(){
-    tick=false;
-    var small=window.matchMedia('(max-width: 760px)').matches;
-    var first=wraps[0].getBoundingClientRect(), last=wraps[wraps.length-1].getBoundingClientRect();
-    var top=hero.getBoundingClientRect().top+46, bottom=last.bottom-64;
-    var y=Math.max(top,Math.min(window.innerHeight*0.42,bottom));
-    r.style.left=(first.left+(small?21:29))+'px';
-    r.style.top=y+'px';
-  }
-  function ask(){ if(!tick){tick=true;requestAnimationFrame(place);} }
-  window.addEventListener('scroll',ask,{passive:true});
-  window.addEventListener('resize',ask);
-  place();
+  var root=document.documentElement, btn=document.getElementById('themeToggle'), stored=null;
+  try{stored=localStorage.getItem('nt-theme');}catch(e){}
+  if(stored==='dark'||stored==='light')root.setAttribute('data-theme',stored);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='light'?'dark':'light';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('nt-theme',next);}catch(e){}
+  });
 })();
-</script>
-<script>
 (function(){
-  if(!('IntersectionObserver' in window))return;
-  var secs=[].slice.call(document.querySelectorAll('.band > .wrap > section'));
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('here',e.isIntersecting);});},{rootMargin:'-20% 0px -60% 0px'});
-  secs.forEach(function(s){io.observe(s);});
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var cells=[].slice.call(document.querySelectorAll('[data-flap]'));
+  var chars='abcdefghijklmnoprstuvwxy';
+  cells.forEach(function(c,i){
+    var final=c.textContent, start=260+i*170, dur=520;
+    c.setAttribute('aria-label',final);
+    c.style.visibility='hidden';
+    setTimeout(function(){
+      c.style.visibility='visible';
+      var t0=performance.now();
+      (function step(now){
+        var p=Math.min(1,(now-t0)/dur), out='';
+        for(var k=0;k<final.length;k++){
+          var settle=(k+1)/final.length*0.85;
+          out+= (final[k]===' '||p>=settle)?final[k]:chars[Math.floor(Math.random()*chars.length)];
+        }
+        c.textContent=out;
+        if(p<1)requestAnimationFrame(step); else c.textContent=final;
+      })(t0);
+    },start);
+  });
 })();
 </script>
-<script>
-  (function () {
-    var root = document.documentElement;
-    var btn = document.getElementById('themeToggle');
-    var stored = null;
-    try { stored = localStorage.getItem('nt-theme'); } catch (e) {}
-    if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
-
-    btn.addEventListener('click', function () {
-      var isDark = root.getAttribute('data-theme') !== 'light';
-      var next = isDark ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('nt-theme', next); } catch (e) {}
-    });
-  })();
-</script>
-
 </body>
 </html>
