@@ -239,6 +239,35 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
 .close h2{font-size:clamp(20px,2vw,24px);line-height:1.3;letter-spacing:-.01em;max-width:28em}
 .close p{font-size:15.5px;max-width:40em;margin-top:14px}
 .close h2{font-size:clamp(26px,2.8vw,34px)}
+details.morepapers{margin-top:8px}
+details.morepapers>ol.papers{margin-top:6px}
+/* experience timeline */
+.tl{position:relative;display:grid;gap:44px}
+.tlitem{display:grid;grid-template-columns:110px 1fr;gap:0 36px;position:relative}
+.tlitem::before{content:"";position:absolute;left:146px;top:10px;bottom:-44px;width:1px;background:var(--line)}
+.tlitem:last-child::before{display:none}
+.tlitem::after{content:"";position:absolute;left:141px;top:9px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.tlwhen{text-align:right;padding-top:1px;line-height:1.3}
+.tlwhen b{display:block;font-family:var(--serif);font-weight:500;font-size:21px}
+.tlwhen span{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.tlbody{padding-left:22px}
+.tlbody h3{font-size:21px;line-height:1.25;margin-bottom:3px}
+.tlbody .org{color:var(--muted);font-size:15px;margin:0 0 12px}
+.tlbody p{font-size:16px;margin:0}
+.tlbody .tlsum{margin:0 0 16px;color:var(--text)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.tile.wide{grid-column:1/-1}
+.tile h4{margin:0 0 6px;font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--accent)}
+.tile p{font-size:14.5px;line-height:1.55;color:var(--muted)}
+@media (max-width:760px){
+  .tlitem{grid-template-columns:1fr;gap:6px}
+  .tlitem::before{left:4px;top:24px}
+  .tlitem::after{left:0;top:6px}
+  .tlwhen{text-align:left;padding-left:22px;display:flex;gap:8px;align-items:baseline}
+  .tlbody{padding-left:22px}
+  .tiles{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -266,7 +295,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
       <div class="herotext">
         <h1>Nastaran Tork</h1>
         <p class="role">Ph.D. candidate, Civil Engineering (Transportation), University of Minnesota<br>M.S., Data Science in Operations Research</p>
-        <p class="statement">I work on transportation research from the first question through the final report, with a focus on analysis that agencies can use.</p>
+        <p class="statement">I do transportation research from problem definition to final report, with a focus on analysis that public agencies can put to use.</p>
         <p class="lede">My training is in optimization and data science, and my experience is in transportation and logistics systems. I work with real agency data, write the reports and tools decision makers use, and present to technical and non technical audiences.</p>
       </div>
       <div class="portrait"><img src="photo.jpg" alt="Nastaran Tork" width="600" height="600"></div>
@@ -387,7 +416,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
         </svg>
       </div>
       <div>
-        <p>When a weight limit changes, trucks change routes. I fused tonnage, weigh-in-motion and location data into statewide truck demand, then ran freight assignment across eight policy scenarios to see route shifts, vehicle miles traveled and permit revenue. This is the second MnDOT funded study I led.</p>
+        <p>When a weight limit changes, trucks change routes. I fused tonnage, weigh-in-motion and location data into statewide truck demand, then ran freight assignment across eight policy scenarios to see route shifts, vehicle miles traveled and permit revenue. This is the second MnDOT funded study I have worked on.</p>
         <ul class="out">
           <li>Statewide truck weight limit policy evaluation, TRB 2027 (accepted)</li>
           <li>Corridor level truck flow visualization for planners</li>
@@ -401,7 +430,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
 
 <section id="papers">
   <div class="wrap">
-    <div class="head"><h2>Papers</h2><p>Newest first. My name is in bold.</p></div>
+    <div class="head"><h2>Selected papers</h2><p>Newest first. My name is in bold. <a href="https://scholar.google.com/citations?user=s7oPp-sAAAAJ">Full list on Google Scholar</a>.</p></div>
     <ol class="papers">
       <li><div class="yr">2027</div><div>
         <h3>Evaluating Incremental Truck Weight Limit Policy at the Statewide Network Scale: A Minnesota Case Study</h3>
@@ -418,6 +447,15 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
         <p class="auth"><b>Tork, N.</b>, Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
         <p class="ven">Minnesota Department of Transportation, Report No. MN 2026-15</p>
         <div class="tags"><span class="kind">Technical report</span><a href="https://mdl.mndot.gov/items/202615">Report</a></div></div></li>
+      <li><div class="yr">2025</div><div>
+        <h3>Efficient Urban Transit Systems: Bridging Freight Logistics and Passenger Transport</h3>
+        <p class="auth"><b>Tork, N.</b>, Baek, K., &amp; Khani, A.</p>
+        <p class="ven">Transportation Research Record, 2679(11), 782&ndash;804. Also presented at TRB 104th Annual Meeting, January 2025</p>
+        <div class="tags"><span class="kind">Journal</span><a href="https://journals.sagepub.com/doi/abs/10.1177/03611981251350642">Paper</a><a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/23018">Program</a></div></div></li>
+    </ol>
+    <details class="more morepapers">
+      <summary>More papers (7)</summary>
+      <ol class="papers">
       <li><div class="yr">2026</div><div>
         <h3>Planning Charging Infrastructure Network and Fleet Size for Mixed Fleets in Staged Electrification with Budget Constraints</h3>
         <p class="auth"><b>Tork, N.</b>, Emami, B. D., Baek, K., Khani, A., Bhandari, S., &amp; Ryan, A.</p>
@@ -433,11 +471,6 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
         <p class="auth">Bhandari, S., Panhorst, J., Ryan, A., <b>Tork, N.</b>, Baek, K., &amp; Khani, A.</p>
         <p class="ven">Transportation Research Interdisciplinary Perspectives</p>
         <div class="tags"><span class="kind">Journal</span><span class="chip s-wait">Under review</span></div></div></li>
-      <li><div class="yr">2025</div><div>
-        <h3>Efficient Urban Transit Systems: Bridging Freight Logistics and Passenger Transport</h3>
-        <p class="auth"><b>Tork, N.</b>, Baek, K., &amp; Khani, A.</p>
-        <p class="ven">Transportation Research Record, 2679(11), 782&ndash;804. Also presented at TRB 104th Annual Meeting, January 2025</p>
-        <div class="tags"><span class="kind">Journal</span><a href="https://journals.sagepub.com/doi/abs/10.1177/03611981251350642">Paper</a><a href="https://annualmeeting.mytrb.org/OnlineProgram/Details/23018">Program</a></div></div></li>
       <li><div class="yr">2025</div><div>
         <h3>Incentive-Compatible Mechanism for Integrated Bike Rebalancing and Local Store Deliveries</h3>
         <p class="auth"><b>Tork, N.</b>, &amp; Khani, A.</p>
@@ -458,7 +491,8 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
         <p class="auth">Amirkhani, A., Shirzadeh, M., <b>Tork, N.</b>, &amp; Shokouhi, S. B.</p>
         <p class="ven">7th International Conference on Robotics and Mechatronics (ICRoM), 398&ndash;403, IEEE</p>
         <div class="tags"><span class="kind">Conference</span><a href="https://ieeexplore.ieee.org/abstract/document/9071897">Paper</a></div></div></li>
-    </ol>
+      </ol>
+    </details>
 
     <details class="more">
       <summary>Talks and posters</summary>
@@ -476,8 +510,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
 
 <section id="tools">
   <div class="wrap">
-    <div class="head"><h2>Tools</h2><p>Open source Python, written with the Transit Lab for agency staff.</p></div>
-    <p class="note">Both tools are public. Minnesota agencies can use them, and some are now putting them into practice.</p>
+    <div class="head"><h2>Tools</h2><p>Open source Python tools, built with the Transit Lab to help public fleet managers plan their move to electric vehicles.</p></div>
     <div class="tools">
       <div class="tool">
         <h3>EV Fleet Optimization Tool</h3>
@@ -496,35 +529,37 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
 <section id="experience">
   <div class="wrap">
     <div class="head"><h2>Experience</h2></div>
-    <div class="job">
-      <div class="when2">Aug 2022 to now</div>
-      <div>
-        <h3>Graduate Research Assistant</h3>
-        <p class="org">Transit Lab, University of Minnesota. Advisor Dr. Alireza Khani.</p>
-        <ul>
-          <li><b>Led two MnDOT funded studies</b>, public fleet electrification and truck weight limit policy, from raw agency data to models, tools and reports.</li>
-          <li><b>Optimization.</b> Formulated and solved multi-stage models for charger placement and fleet sizing under budget limits.</li>
-          <li><b>Data engineering and network modeling.</b> Fused tonnage, weigh-in-motion and location data into statewide truck demand, then ran freight assignment across eight policy scenarios.</li>
-          <li><b>Mechanism design.</b> Designed incentive-compatible schemes that combine bike rebalancing with last-mile store deliveries.</li>
-          <li><b>Open source delivery.</b> Released two documented Python tools, backed by a state technical report and a public webinar.</li>
-          <li><b>Writing and communication.</b> Contributed to research proposals. Published and presented at TRB, INFORMS, IEEE ITSC and CASPT.</li>
-        </ul>
+    <div class="tl">
+      <div class="tlitem">
+        <div class="tlwhen"><b>2022</b><span>to now</span></div>
+        <div class="tlbody">
+          <h3>Graduate Research Assistant</h3>
+          <p class="org">Transit Lab, University of Minnesota. Advisor Dr. Alireza Khani.</p>
+          <p class="tlsum">Two MnDOT funded studies, from raw agency data to models, tools and reports.</p>
+          <div class="tiles">
+            <div class="tile"><h4>Optimization</h4><p>Formulated and solved multi-stage models for charger placement and fleet sizing under budget limits.</p></div>
+            <div class="tile"><h4>Data and network modeling</h4><p>Fused tonnage, weigh-in-motion and location data into statewide truck demand, then ran freight assignment across eight policy scenarios.</p></div>
+            <div class="tile"><h4>Mechanism design</h4><p>Designed incentive-compatible schemes that combine bike rebalancing with last-mile store deliveries.</p></div>
+            <div class="tile"><h4>Open source delivery</h4><p>Released two documented Python tools, backed by a state technical report and a public webinar.</p></div>
+            <div class="tile wide"><h4>Writing and presenting</h4><p>Contributed to research proposals. Published and presented at TRB, INFORMS, IEEE ITSC and CASPT.</p></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="job">
-      <div class="when2">2025</div>
-      <div>
-        <h3>Capstone Researcher</h3>
-        <p class="org">Collins Aerospace, through Industrial and Systems Engineering</p>
-        <p>Co-designed and ran the Stat-a-thon, an internal applied statistics competition for manufacturing development, built to raise analytical skills across the organization.</p>
+      <div class="tlitem">
+        <div class="tlwhen"><b>2025</b></div>
+        <div class="tlbody">
+          <h3>Capstone Researcher</h3>
+          <p class="org">Collins Aerospace, through Industrial and Systems Engineering</p>
+          <p>Co-designed and ran the Stat-a-thon, an internal applied statistics competition for manufacturing development, built to raise analytical skills across the organization.</p>
+        </div>
       </div>
-    </div>
-    <div class="job">
-      <div class="when2">2019 to 2020</div>
-      <div>
-        <h3>Undergraduate Research Assistant</h3>
-        <p class="org">Machine Vision Lab, Iran University of Science and Technology</p>
-        <p>Developed and tested adaptive neural controllers for autonomous vehicle path following and quadrotor trajectory tracking, with three peer-reviewed publications.</p>
+      <div class="tlitem">
+        <div class="tlwhen"><b>2019</b><span>to 2020</span></div>
+        <div class="tlbody">
+          <h3>Undergraduate Research Assistant</h3>
+          <p class="org">Machine Vision Lab, Iran University of Science and Technology</p>
+          <p>Developed and tested adaptive neural controllers for autonomous vehicle path following and quadrotor trajectory tracking, with three peer-reviewed publications.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -587,8 +622,8 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim);fon
 
 <div class="close">
   <div class="wrap">
-    <h2>Looking for roles where good math meets real operations, at scale.</h2>
-    <p>I am finishing my Ph.D. in late 2027 and I like problems where the model has to survive contact with real data and real operators.</p>
+    <h2>Open to roles where research meets real decisions.</h2>
+    <p>I finish my Ph.D. in late 2027. I am looking for work that turns careful analysis into something a team can use, in industry, government or research.</p>
     <div class="btns">
       <a class="btn main" href="mailto:tork0100@umn.edu">Email me</a>
       <a class="btn" href="cv.pdf">Read my CV</a>
